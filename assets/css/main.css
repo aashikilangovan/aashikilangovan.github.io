@@ -1438,14 +1438,14 @@ button {
 }
 
 #bg:before {
-	-moz-transition: background-color 2.5s ease-in-out;
-	-webkit-transition: background-color 2.5s ease-in-out;
-	-ms-transition: background-color 2.5s ease-in-out;
-	transition: background-color 2.5s ease-in-out;
-	-moz-transition-delay: 0.75s;
-	-webkit-transition-delay: 0.75s;
-	-ms-transition-delay: 0.75s;
-	transition-delay: 0.75s;
+	-moz-transition: background-color 1.0s ease-in-out;
+	-webkit-transition: background-color 1.0s ease-in-out;
+	-ms-transition: background-color 1.0s ease-in-out;
+	transition: background-color 1.0s ease-in-out;
+	-moz-transition-delay: 0.45s;
+	-webkit-transition-delay: 0.45s;
+	-ms-transition-delay: 0.45s;
+	transition-delay: 0.35s;
 	background-image: linear-gradient(to top, rgba(19, 21, 25, 0.5), rgba(19, 21, 25, 0.5)), url("../../images/overlay.png");
 	background-size: auto,
 		256px 256px;
@@ -1640,10 +1640,10 @@ body.is-preload #bg:before {
 }
 
 #header .content .inner {
-	-moz-transition: max-height 0.75s ease, padding 0.75s ease, opacity 0.325s ease-in-out;
-	-webkit-transition: max-height 0.75s ease, padding 0.75s ease, opacity 0.325s ease-in-out;
-	-ms-transition: max-height 0.75s ease, padding 0.75s ease, opacity 0.325s ease-in-out;
-	transition: max-height 0.75s ease, padding 0.75s ease, opacity 0.325s ease-in-out;
+	-moz-transition: max-height 0.55s ease, padding 0.55s ease, opacity 0.325s ease-in-out;
+	-webkit-transition: max-height 0.55s ease, padding 0.55s ease, opacity 0.325s ease-in-out;
+	-ms-transition: max-height 0.55s ease, padding 0.55s ease, opacity 0.325s ease-in-out;
+	transition: max-height 0.55s ease, padding 0.55s ease, opacity 0.325s ease-in-out;
 	-moz-transition-delay: 0.25s;
 	-webkit-transition-delay: 0.25s;
 	-ms-transition-delay: 0.25s;
