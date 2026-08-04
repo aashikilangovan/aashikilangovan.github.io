@@ -2386,12 +2386,20 @@ body.is-preload #footer {
 .cat-body:before {
 	content: '';
 	position: absolute;
-	top: -26px;
+	top: -28px;
 	left: 50%;
-	width: 44px;
-	height: 38px;
+	width: 50px;
+	height: 42px;
 	background: linear-gradient(160deg, #3a3a3a, #050505 65%);
-	border-radius: 50% 50% 44% 44% / 58% 58% 42% 42%;
+	/* A tapered wedge (flat brow, round cheeks, pointed jaw) reads as
+	   a cat face; a border-radius blob just reads as a circle. */
+	clip-path: polygon(
+		24% 0%, 76% 0%,
+		96% 24%, 94% 54%,
+		78% 88%, 62% 100%,
+		38% 100%, 22% 88%,
+		6% 54%, 4% 24%
+	);
 	transform: translateX(-50%);
 }
 
@@ -2407,13 +2415,13 @@ body.is-preload #footer {
 }
 
 .cat-ear-left {
-	left: 6px;
+	left: 9px;
 	transform: rotate(-18deg);
 	transform-origin: bottom center;
 }
 
 .cat-ear-right {
-	right: 6px;
+	right: 9px;
 	transform: rotate(18deg);
 	transform-origin: bottom center;
 	animation-name: catEarTwitchRight;
