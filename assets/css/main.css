@@ -2186,7 +2186,7 @@ body.is-preload #footer {
 #cat {
 	position: fixed;
 	right: 1.75rem;
-	bottom: 2.25rem;
+	top: 1.5rem;
 	width: 96px;
 	height: 108px;
 	z-index: 9999;
@@ -2229,19 +2229,6 @@ body.is-preload #footer {
 	left: 68px;
 	font-size: 11px;
 	animation-delay: 1.9s;
-}
-
-.cat-shadow {
-	position: absolute;
-	bottom: 4px;
-	left: 50%;
-	width: 54px;
-	height: 10px;
-	background: rgba(0, 0, 0, 0.45);
-	border-radius: 50%;
-	filter: blur(2px);
-	transform: translateX(-50%);
-	animation: catShadowPulse 3.2s ease-in-out infinite;
 }
 
 .cat-body {
@@ -2314,6 +2301,89 @@ body.is-preload #footer {
 	animation-delay: 0.15s;
 }
 
+.cat-muzzle {
+	position: absolute;
+	top: 2px;
+	left: 50%;
+	width: 16px;
+	height: 10px;
+	background: linear-gradient(160deg, #3a3a3a, #050505 65%);
+	border-radius: 45% 45% 50% 50% / 55% 55% 45% 45%;
+	transform: translateX(-50%);
+}
+
+.cat-muzzle:after {
+	content: '';
+	position: absolute;
+	top: -2px;
+	left: 50%;
+	width: 5px;
+	height: 4px;
+	background: #ffb74d;
+	border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+	box-shadow: 0 0 4px 1px rgba(255, 183, 77, 0.6);
+	transform: translateX(-50%);
+}
+
+.cat-whiskers {
+	position: absolute;
+	top: 3px;
+	width: 18px;
+	height: 1.5px;
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 1px;
+	pointer-events: none;
+}
+
+.cat-whiskers:before,
+.cat-whiskers:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	width: 16px;
+	height: 1.5px;
+	background: rgba(255, 255, 255, 0.36);
+	border-radius: 1px;
+	transform-origin: left center;
+}
+
+.cat-whiskers:before {
+	top: 6px;
+	transform: rotate(12deg);
+}
+
+.cat-whiskers:after {
+	top: -5px;
+	transform: rotate(-10deg);
+}
+
+.cat-whiskers-left {
+	left: -10px;
+	transform: rotate(-6deg);
+}
+
+.cat-whiskers-right {
+	right: -10px;
+	transform: rotate(6deg) scaleX(-1);
+}
+
+.cat-paw {
+	position: absolute;
+	bottom: -4px;
+	width: 16px;
+	height: 11px;
+	background: linear-gradient(160deg, #2c2c2c, #050505 70%);
+	border-radius: 50%;
+}
+
+.cat-paw-left {
+	left: 12px;
+}
+
+.cat-paw-right {
+	right: 12px;
+}
+
 .cat-headphones {
 	position: absolute;
 	top: -32px;
@@ -2360,8 +2430,8 @@ body.is-preload #footer {
 .cat-bubble {
 	position: absolute;
 	right: 0;
-	bottom: 100%;
-	margin-bottom: 0.5rem;
+	top: 100%;
+	margin-top: 0.5rem;
 	background: #fff;
 	color: #1b1f22;
 	padding: 0.4rem 0.75rem;
@@ -2371,8 +2441,8 @@ body.is-preload #footer {
 	white-space: nowrap;
 	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 	opacity: 0;
-	transform: translateY(6px) scale(0.9);
-	transform-origin: bottom right;
+	transform: translateY(-6px) scale(0.9);
+	transform-origin: top right;
 	pointer-events: none;
 	transition: opacity 0.25s ease, transform 0.25s ease;
 }
@@ -2380,10 +2450,10 @@ body.is-preload #footer {
 .cat-bubble:after {
 	content: '';
 	position: absolute;
-	top: 100%;
+	bottom: 100%;
 	right: 14px;
 	border: 5px solid transparent;
-	border-top-color: #fff;
+	border-bottom-color: #fff;
 }
 
 #cat.is-talking .cat-bubble {
@@ -2398,11 +2468,6 @@ body.is-preload #footer {
 @keyframes catBob {
 	0%, 100% { transform: translateX(-50%) translateY(0); }
 	50% { transform: translateX(-50%) translateY(-4px); }
-}
-
-@keyframes catShadowPulse {
-	0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.45; }
-	50% { transform: translateX(-50%) scale(0.85); opacity: 0.3; }
 }
 
 @keyframes catEarTwitch {
@@ -2455,11 +2520,11 @@ body.is-preload #footer {
 
 	#cat {
 		right: 0.75rem;
-		bottom: 1.5rem;
+		top: 1rem;
 		width: 66px;
 		height: 72px;
 		transform: scale(0.85);
-		transform-origin: bottom right;
+		transform-origin: top right;
 		animation: none;
 	}
 
@@ -2478,14 +2543,15 @@ body.is-preload #footer {
 	#main article > h2.major,
 	#header .logo,
 	#cat,
-	.cat-shadow,
 	.cat-body,
 	.cat-ear,
 	.cat-ear-right,
 	.cat-eye,
 	.cat-tail,
 	.cat-glow,
-	.cat-note {
+	.cat-note,
+	.eq i,
+	.experience hr {
 		animation: none !important;
 	}
 

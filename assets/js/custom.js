@@ -72,7 +72,7 @@
 		});
 	}
 
-	// Cat mascot.
+	// Cat mascot: Mewo.
 	var cat = document.getElementById('cat');
 
 	if (cat) {
@@ -80,32 +80,58 @@
 		var bubble = cat.querySelector('.cat-bubble');
 		var messages = [
 			'meow!',
-			'hi there 🐾',
+			"hi, i'm Mewo 🐾",
 			'purrrr~',
 			'nice portfolio, huh?',
 			'psst... check my projects',
 			'✨',
-			'hire my human'
+			'hire my human',
+			'🎧 good taste in music, right?',
+			'click me!'
 		];
 		var bubbleTimeout;
 
-		cat.addEventListener('click', function () {
+		function showBubble(text) {
+			if (!bubble) return;
+			bubble.textContent = text;
+			cat.classList.add('is-talking');
+			clearTimeout(bubbleTimeout);
+			bubbleTimeout = setTimeout(function () {
+				cat.classList.remove('is-talking');
+			}, 1800);
+		}
 
+		function jump() {
 			cat.classList.remove('is-jumping');
-			// Force reflow so the animation can restart on repeat clicks.
+			// Force reflow so the animation can restart on repeat triggers.
 			void cat.offsetWidth;
 			cat.classList.add('is-jumping');
+		}
 
-			if (bubble) {
-				bubble.textContent = messages[Math.floor(Math.random() * messages.length)];
-				cat.classList.add('is-talking');
-				clearTimeout(bubbleTimeout);
-				bubbleTimeout = setTimeout(function () {
-					cat.classList.remove('is-talking');
-				}, 1800);
-			}
-
+		cat.addEventListener('click', function () {
+			jump();
+			showBubble(messages[Math.floor(Math.random() * messages.length)]);
 		});
+
+		// A one-time nudge shortly after load so Mewo gets noticed.
+		setTimeout(function () {
+			jump();
+			showBubble('click me!');
+		}, 2500);
+
+		// Then a periodic, low-frequency nudge to stay noticeable without being annoying.
+		if (!prefersReducedMotion) {
+			(function scheduleIdleNudge() {
+				var delay = 25000 + Math.random() * 20000; // 25-45s
+				setTimeout(function () {
+					if (!cat.classList.contains('is-talking')) {
+						jump();
+						showBubble(messages[Math.floor(Math.random() * messages.length)]);
+					}
+					scheduleIdleNudge();
+				}, delay);
+			})();
+		}
 
 	}
 
