@@ -2134,11 +2134,32 @@ body.is-preload #footer {
 	50% { transform: scaleY(1); }
 }
 
-/* Equalizer "spikes" when its heading scrolls into view */
+/* Music notes bursting from wherever you click */
 
-.eq.is-boosted i {
-	animation-duration: 0.42s;
-	box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.75);
+.click-note {
+	position: fixed;
+	left: 0;
+	top: 0;
+	font-size: 15px;
+	text-shadow: 0 0 6px currentColor;
+	pointer-events: none;
+	z-index: 10001;
+	will-change: transform, opacity;
+	animation: clickNoteFly 850ms ease-out forwards;
+}
+
+@keyframes clickNoteFly {
+	0% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+	}
+	15% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		transform: translate(calc(-50% + var(--dx, 20px)), calc(-50% + var(--dy, -50px))) scale(1.1) rotate(var(--rot, 15deg));
+	}
 }
 
 /* Scroll progress bar, styled like a track scrubber */

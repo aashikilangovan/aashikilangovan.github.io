@@ -99,23 +99,34 @@
 		updateProgress();
 	}
 
-	// Equalizer icons "spike" briefly as their heading scrolls into view.
-	if (!prefersReducedMotion && 'IntersectionObserver' in window) {
-		var eqObserver = new IntersectionObserver(function (entries) {
-			entries.forEach(function (entry) {
-				if (entry.isIntersecting) {
-					var el = entry.target;
-					el.classList.add('is-boosted');
-					setTimeout(function () {
-						el.classList.remove('is-boosted');
-					}, 1200);
-				}
-			});
-		}, { threshold: 0.6 });
+	// Music notes burst from wherever you click.
+	if (!prefersReducedMotion) {
+		var noteGlyphs = ['♪', '♫', '♬'];
+		var noteColors = ['var(--accent-soft)', 'var(--accent)', 'var(--accent-deep)'];
 
-		document.querySelectorAll('.eq').forEach(function (el) {
-			eqObserver.observe(el);
-		});
+		// Capture phase: fires before any other handler on the page can
+		// stopPropagation() the click (e.g. the article-panel backdrop).
+		document.addEventListener('click', function (e) {
+			var count = 2 + Math.floor(Math.random() * 2); // 2-3 notes per click
+
+			for (var i = 0; i < count; i++) {
+				var note = document.createElement('span');
+				note.className = 'click-note';
+				note.textContent = noteGlyphs[Math.floor(Math.random() * noteGlyphs.length)];
+				note.style.left = e.clientX + 'px';
+				note.style.top = e.clientY + 'px';
+				note.style.color = noteColors[Math.floor(Math.random() * noteColors.length)];
+				note.style.setProperty('--dx', (Math.random() * 64 - 32).toFixed(0) + 'px');
+				note.style.setProperty('--dy', (-42 - Math.random() * 36).toFixed(0) + 'px');
+				note.style.setProperty('--rot', (Math.random() * 44 - 22).toFixed(0) + 'deg');
+				note.style.animationDelay = (i * 55) + 'ms';
+
+				document.body.appendChild(note);
+				note.addEventListener('animationend', function () {
+					this.remove();
+				});
+			}
+		}, true);
 	}
 
 	// Cat mascot: Mewo.
