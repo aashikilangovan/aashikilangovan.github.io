@@ -2121,6 +2121,111 @@ body.is-preload #footer {
 	50% { transform: scaleY(1); }
 }
 
+/* Equalizer "spikes" when its heading scrolls into view */
+
+.eq.is-boosted i {
+	animation-duration: 0.42s;
+	box-shadow: 0 0 8px rgba(255, 152, 0, 0.75);
+}
+
+/* Scroll progress bar, styled like a track scrubber */
+
+#scroll-progress {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background: rgba(255, 255, 255, 0.06);
+	z-index: 10000;
+	pointer-events: none;
+}
+
+#scroll-progress-bar {
+	position: relative;
+	height: 100%;
+	width: 0%;
+	background: linear-gradient(90deg, #ff9800, #7dd3fc);
+	box-shadow: 0 0 8px 1px rgba(255, 152, 0, 0.45);
+	transition: width 0.12s linear;
+}
+
+#scroll-progress-bar:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: -4px;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background: #7dd3fc;
+	box-shadow: 0 0 8px 2px rgba(125, 211, 252, 0.85);
+	transform: translateY(-50%);
+}
+
+/* Ambient background spectrum */
+
+#ambient-eq {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 46px;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	padding: 0 6%;
+	gap: 3px;
+	z-index: 2;
+	pointer-events: none;
+	opacity: 0.22;
+	-webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+	mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+}
+
+#ambient-eq i {
+	flex: 1 1 auto;
+	max-width: 6px;
+	background: linear-gradient(180deg, #7dd3fc, #ff9800);
+	border-radius: 2px 2px 0 0;
+	transform-origin: bottom center;
+	animation: ambientPulse 2.4s ease-in-out infinite;
+}
+
+#ambient-eq i:nth-child(1) { height: 22%; animation-delay: -0.1s; }
+#ambient-eq i:nth-child(2) { height: 48%; animation-delay: -1.4s; }
+#ambient-eq i:nth-child(3) { height: 30%; animation-delay: -0.7s; }
+#ambient-eq i:nth-child(4) { height: 65%; animation-delay: -2.0s; }
+#ambient-eq i:nth-child(5) { height: 40%; animation-delay: -0.3s; }
+#ambient-eq i:nth-child(6) { height: 80%; animation-delay: -1.8s; }
+#ambient-eq i:nth-child(7) { height: 35%; animation-delay: -1.1s; }
+#ambient-eq i:nth-child(8) { height: 55%; animation-delay: -0.5s; }
+#ambient-eq i:nth-child(9) { height: 25%; animation-delay: -1.6s; }
+#ambient-eq i:nth-child(10) { height: 70%; animation-delay: -0.9s; }
+#ambient-eq i:nth-child(11) { height: 45%; animation-delay: -2.2s; }
+#ambient-eq i:nth-child(12) { height: 60%; animation-delay: -0.2s; }
+#ambient-eq i:nth-child(13) { height: 33%; animation-delay: -1.3s; }
+#ambient-eq i:nth-child(14) { height: 75%; animation-delay: -0.6s; }
+#ambient-eq i:nth-child(15) { height: 28%; animation-delay: -1.9s; }
+#ambient-eq i:nth-child(16) { height: 50%; animation-delay: -1.0s; }
+#ambient-eq i:nth-child(17) { height: 38%; animation-delay: -0.4s; }
+#ambient-eq i:nth-child(18) { height: 68%; animation-delay: -1.5s; }
+#ambient-eq i:nth-child(19) { height: 42%; animation-delay: -0.8s; }
+#ambient-eq i:nth-child(20) { height: 20%; animation-delay: -2.1s; }
+
+@keyframes ambientPulse {
+	0%, 100% { transform: scaleY(0.6); opacity: 0.6; }
+	50% { transform: scaleY(1); opacity: 1; }
+}
+
+@media screen and (max-width: 480px) {
+
+	#ambient-eq {
+		display: none;
+	}
+
+}
+
 /* Animated signal dividers (replaces plain <hr> in Experience) */
 
 .experience hr {
@@ -2551,12 +2656,17 @@ body.is-preload #footer {
 	.cat-glow,
 	.cat-note,
 	.eq i,
-	.experience hr {
+	.experience hr,
+	#ambient-eq i {
 		animation: none !important;
 	}
 
 	.cat-glow {
 		opacity: 0.6;
+	}
+
+	#scroll-progress-bar {
+		transition: none !important;
 	}
 
 }

@@ -72,6 +72,52 @@
 		});
 	}
 
+	// Scroll progress bar (top of page), styled like a track scrubber.
+	var progressBar = document.getElementById('scroll-progress-bar');
+
+	if (progressBar) {
+		var progressTicking = false;
+
+		function updateProgress() {
+			var doc = document.documentElement;
+			var scrollTop = window.pageYOffset || doc.scrollTop;
+			var scrollHeight = doc.scrollHeight - doc.clientHeight;
+			var pct = scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100)) : 0;
+			progressBar.style.width = pct + '%';
+			progressTicking = false;
+		}
+
+		function onProgressScroll() {
+			if (!progressTicking) {
+				requestAnimationFrame(updateProgress);
+				progressTicking = true;
+			}
+		}
+
+		window.addEventListener('scroll', onProgressScroll, { passive: true });
+		window.addEventListener('resize', onProgressScroll);
+		updateProgress();
+	}
+
+	// Equalizer icons "spike" briefly as their heading scrolls into view.
+	if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+		var eqObserver = new IntersectionObserver(function (entries) {
+			entries.forEach(function (entry) {
+				if (entry.isIntersecting) {
+					var el = entry.target;
+					el.classList.add('is-boosted');
+					setTimeout(function () {
+						el.classList.remove('is-boosted');
+					}, 1200);
+				}
+			});
+		}, { threshold: 0.6 });
+
+		document.querySelectorAll('.eq').forEach(function (el) {
+			eqObserver.observe(el);
+		});
+	}
+
 	// Cat mascot: Mewo.
 	var cat = document.getElementById('cat');
 
