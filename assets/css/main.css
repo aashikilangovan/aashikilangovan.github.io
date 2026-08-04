@@ -2090,6 +2090,56 @@ body.is-preload #footer {
 	left: 20%;
 }
 
+/* Now-playing equalizer accent (name + section headings) */
+
+.eq {
+	display: inline-flex;
+	align-items: flex-end;
+	gap: 3px;
+	height: 0.85em;
+	margin-right: 0.65rem;
+	vertical-align: -0.05em;
+}
+
+.eq i {
+	display: block;
+	width: 3px;
+	background: linear-gradient(180deg, #ffd54f, #ff9800);
+	border-radius: 2px;
+	transform-origin: bottom center;
+	animation: eqBounce 1.1s ease-in-out infinite;
+	box-shadow: 0 0 4px rgba(255, 152, 0, 0.4);
+}
+
+.eq i:nth-child(1) { height: 35%; animation-delay: -0.9s; }
+.eq i:nth-child(2) { height: 100%; animation-delay: -0.5s; }
+.eq i:nth-child(3) { height: 55%; animation-delay: -0.2s; }
+.eq i:nth-child(4) { height: 78%; animation-delay: -1.1s; }
+
+@keyframes eqBounce {
+	0%, 100% { transform: scaleY(0.35); }
+	50% { transform: scaleY(1); }
+}
+
+/* Animated signal dividers (replaces plain <hr> in Experience) */
+
+.experience hr {
+	height: 2px;
+	border-bottom: none;
+	background: linear-gradient(90deg,
+		rgba(255, 152, 0, 0) 0%,
+		rgba(255, 152, 0, 0.85) 35%,
+		rgba(125, 211, 252, 0.85) 65%,
+		rgba(125, 211, 252, 0) 100%);
+	background-size: 220% 100%;
+	animation: signalSweep 5s linear infinite;
+}
+
+@keyframes signalSweep {
+	0% { background-position: 0% 0; }
+	100% { background-position: -220% 0; }
+}
+
 /* Image hover polish */
 
 .image.main,
