@@ -72,7 +72,64 @@
 		});
 	}
 
-	// Cat mascot.
+	// Scroll progress bar (top of page), styled like a track scrubber.
+	var progressBar = document.getElementById('scroll-progress-bar');
+
+	if (progressBar) {
+		var progressTicking = false;
+
+		function updateProgress() {
+			var doc = document.documentElement;
+			var scrollTop = window.pageYOffset || doc.scrollTop;
+			var scrollHeight = doc.scrollHeight - doc.clientHeight;
+			var pct = scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100)) : 0;
+			progressBar.style.width = pct + '%';
+			progressTicking = false;
+		}
+
+		function onProgressScroll() {
+			if (!progressTicking) {
+				requestAnimationFrame(updateProgress);
+				progressTicking = true;
+			}
+		}
+
+		window.addEventListener('scroll', onProgressScroll, { passive: true });
+		window.addEventListener('resize', onProgressScroll);
+		updateProgress();
+	}
+
+	// Music notes burst from wherever you click.
+	if (!prefersReducedMotion) {
+		var noteGlyphs = ['♪', '♫', '♬'];
+		var noteColors = ['var(--accent-soft)', 'var(--accent)', 'var(--accent-deep)'];
+
+		// Capture phase: fires before any other handler on the page can
+		// stopPropagation() the click (e.g. the article-panel backdrop).
+		document.addEventListener('click', function (e) {
+			var count = 2 + Math.floor(Math.random() * 2); // 2-3 notes per click
+
+			for (var i = 0; i < count; i++) {
+				var note = document.createElement('span');
+				note.className = 'click-note';
+				note.textContent = noteGlyphs[Math.floor(Math.random() * noteGlyphs.length)];
+				note.style.left = e.clientX + 'px';
+				note.style.top = e.clientY + 'px';
+				note.style.color = noteColors[Math.floor(Math.random() * noteColors.length)];
+				note.style.setProperty('--dx', (Math.random() * 64 - 32).toFixed(0) + 'px');
+				note.style.setProperty('--dy', (-42 - Math.random() * 36).toFixed(0) + 'px');
+				note.style.setProperty('--rot', (Math.random() * 44 - 22).toFixed(0) + 'deg');
+				note.style.animationDelay = (i * 55) + 'ms';
+
+				document.body.appendChild(note);
+				note.addEventListener('animationend', function () {
+					this.remove();
+				});
+			}
+		}, true);
+	}
+
+	// Cat mascot: Mewo.
 	var cat = document.getElementById('cat');
 
 	if (cat) {
@@ -80,32 +137,58 @@
 		var bubble = cat.querySelector('.cat-bubble');
 		var messages = [
 			'meow!',
-			'hi there 🐾',
+			"hi, i'm Mewo 🐾",
 			'purrrr~',
 			'nice portfolio, huh?',
 			'psst... check my projects',
 			'✨',
-			'hire my human'
+			'hire my human',
+			'🎧 good taste in music, right?',
+			'click me!'
 		];
 		var bubbleTimeout;
 
-		cat.addEventListener('click', function () {
+		function showBubble(text) {
+			if (!bubble) return;
+			bubble.textContent = text;
+			cat.classList.add('is-talking');
+			clearTimeout(bubbleTimeout);
+			bubbleTimeout = setTimeout(function () {
+				cat.classList.remove('is-talking');
+			}, 1800);
+		}
 
+		function jump() {
 			cat.classList.remove('is-jumping');
-			// Force reflow so the animation can restart on repeat clicks.
+			// Force reflow so the animation can restart on repeat triggers.
 			void cat.offsetWidth;
 			cat.classList.add('is-jumping');
+		}
 
-			if (bubble) {
-				bubble.textContent = messages[Math.floor(Math.random() * messages.length)];
-				cat.classList.add('is-talking');
-				clearTimeout(bubbleTimeout);
-				bubbleTimeout = setTimeout(function () {
-					cat.classList.remove('is-talking');
-				}, 1800);
-			}
-
+		cat.addEventListener('click', function () {
+			jump();
+			showBubble(messages[Math.floor(Math.random() * messages.length)]);
 		});
+
+		// A one-time nudge shortly after load so Mewo gets noticed.
+		setTimeout(function () {
+			jump();
+			showBubble('click me!');
+		}, 2500);
+
+		// Then a periodic, low-frequency nudge to stay noticeable without being annoying.
+		if (!prefersReducedMotion) {
+			(function scheduleIdleNudge() {
+				var delay = 25000 + Math.random() * 20000; // 25-45s
+				setTimeout(function () {
+					if (!cat.classList.contains('is-talking')) {
+						jump();
+						showBubble(messages[Math.floor(Math.random() * messages.length)]);
+					}
+					scheduleIdleNudge();
+				}, delay);
+			})();
+		}
 
 	}
 
