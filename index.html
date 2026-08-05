@@ -73,128 +73,222 @@
 			<!-- Work -->
 			<article id="work">
 				<h2 class="major"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Highlighted Projects</h2>
-				<!--<h4>Here are a couple of highlighted projects; you may find more linked on GitHub <a href="https://github.com/aashikilangovan" target="_blank" rel="noopener noreferrer">here</a>!</h4>-->
-				<h2>My Wavelength - Personal Spotify Analytics Dashboard</h2>
-				<span class="image main"><img src="images/my-wavelength.png" alt="My Wavelength dashboard showing listening stats and top tracks" /></span>
-				<p>
-					<i>
-						A passion project pairing my love of music with data analytics: a personal dashboard that
-						continuously ingests my own Spotify listening history and visualizes it with a
-						warm, electric, music-themed, custom-built UI - top tracks/artists/albums with day-over-day
-						rank-change badges, a listening activity heatmap with peak-time insights, monthly/weekly
-						listening trends, streak stats, and a live "now playing" widget with a spinning vinyl.
-					</i>
-				</p>
-				<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
-					<li>Built an automated ETL pipeline (GitHub Actions + Spotify Web API) that upserts new
-						listening history into a hosted database on a schedule, plus a daily snapshot job that
-						powers day-over-day rank-change tracking on top tracks/artists</li>
-					<li>Designed a warm, electric, custom-themed UI/UX with hand-built charts, Framer Motion
-						animations, and music-themed visual flourishes rather than an off-the-shelf dashboard kit</li>
-					<li>Worked around real-world API constraints (Spotify deprecating endpoints/fields
-						mid-project) by redesigning the analytics around the data that remained available</li>
-					<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>Next.js,
-							TypeScript, Tailwind CSS, Recharts, Framer Motion, Turso (libSQL), GitHub Actions</i></li>
-				</ul>
-				<h4>
-					<a href="https://my-wavelength.vercel.app" target="_blank" rel="noopener noreferrer">
-						Live Site
-					</a>
-					&nbsp;|&nbsp;
-					<a href="https://github.com/aashikilangovan/my-wavelength" target="_blank"
-						rel="noopener noreferrer">
-						GitHub Repository
-					</a>
-				</h4>
+				<h4>Click a project to expand it and see more.</h4>
 
-				<h2>Streamix - Home Theatre PC Application</h2>
-				<div class="yt-facade" data-yt-id="uS2-4lom-FQ" role="button" tabindex="0"
-					aria-label="Play YouTube video: Streamix demo">
-					<img src="https://i.ytimg.com/vi/uS2-4lom-FQ/hqdefault.jpg" alt="Streamix demo video thumbnail"
-						loading="lazy" decoding="async" />
-					<span class="yt-facade-play" aria-hidden="true"></span>
-				</div>
-				<p>
-					<i>
-						Demonstrative video of a HTPC application, Streamix. The application provides an immersive,
-						inclusive, and enriching experience for users allowing them to perform actions such as browsing,
-						rate media, create and add to lists, watch media etc.
-					</i>
-				</p>
-				<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
-					<li>Responsible for all front-end <i>designs and development</i>, crafting a visually appealing
-						interface and experience for users</li>
-					<li>Co-developed<i> back-end system and embedded attributes </i>(Spotify Player, YouTube Live
-						Player)</li>
-					<li>Used Task-Centered System Design approach to develop the application using <i>real user
-							feedback</i></li>
-					<li>Developed BPMN process models and AS-IS/TO-BE customer journey maps to analyze fragmented
-						media consumption workflows and reduce cross-platform switching effort</li>
-					<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>HTML, CSS,
-							JavaScript, Adobe Photoshop & Premiere Pro</i></li>
-				</ul>
-				<h4>
-					Github:
-					<a href="https://github.com/aashikilangovan/Streamix-Website-HTPC" target="_blank"
-						rel="noopener noreferrer">
-						Streamix Website HTPC Repository
-					</a>
-				</h4>
+				<!-- Spotify: personal favorite, kept open by default -->
+				<details class="project-card is-featured" data-type="personal" open>
+					<summary>
+						<span class="project-star" aria-hidden="true">&#10022;</span>
+						<div class="project-summary-main">
+							<span class="project-type-badge">Personal Project</span>
+							<h2>My Wavelength &mdash; Personal Spotify Analytics Dashboard</h2>
+							<p class="project-fave">&#9733; My personal favorite &mdash; definitely check this one out.</p>
+						</div>
+						<span class="project-toggle" aria-hidden="true"></span>
+					</summary>
+					<div class="project-body">
+						<span class="image main"><img src="images/my-wavelength.png" alt="My Wavelength dashboard showing listening stats and top tracks" /></span>
+						<p>
+							<i>
+								A passion project pairing my love of music with data analytics: a personal dashboard that
+								continuously ingests my own Spotify listening history and visualizes it with a
+								warm, electric, music-themed, custom-built UI - top tracks/artists/albums with day-over-day
+								rank-change badges, a listening activity heatmap with peak-time insights, monthly/weekly
+								listening trends, streak stats, and a live "now playing" widget with a spinning vinyl.
+							</i>
+						</p>
+						<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
+							<li>Built an automated ETL pipeline (GitHub Actions + Spotify Web API) that upserts new
+								listening history into a hosted database on a schedule, plus a daily snapshot job that
+								powers day-over-day rank-change tracking on top tracks/artists</li>
+							<li>Designed a warm, electric, custom-themed UI/UX with hand-built charts, Framer Motion
+								animations, and music-themed visual flourishes rather than an off-the-shelf dashboard kit</li>
+							<li>Worked around real-world API constraints (Spotify deprecating endpoints/fields
+								mid-project) by redesigning the analytics around the data that remained available</li>
+							<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>Next.js,
+									TypeScript, Tailwind CSS, Recharts, Framer Motion, Turso (libSQL), GitHub Actions</i></li>
+						</ul>
+						<h4>
+							<a href="https://my-wavelength.vercel.app" target="_blank" rel="noopener noreferrer">
+								Live Site
+							</a>
+							&nbsp;|&nbsp;
+							<a href="https://github.com/aashikilangovan/my-wavelength" target="_blank"
+								rel="noopener noreferrer">
+								GitHub Repository
+							</a>
+						</h4>
+					</div>
+				</details>
 
-				<!-- Wahhing -->
-				<h2>Online Meat Retailer Software Solution</h2>
-				<span class="image main"><img src="images/wahhing1.jpg" alt="" loading="lazy" decoding="async" /></span>
-				<p>
-					<i>The Wah Hing Online Retailer Application was designed to provide a seamless shopping experience
-						for
-						customers and improve efficiency for admins, replacing the company’s manual, paper-based
-						ordering
-						system. By adopting an agile development approach, my team and I incorporated user feedback to
-						create an intuitive, user-friendly platform that streamlined operations and enhanced Wah Hing’s
-						online presence.</i>
-				</p>
+				<!-- Streamix: academic -->
+				<details class="project-card" data-type="academic">
+					<summary>
+						<span class="project-star" aria-hidden="true">&#10022;</span>
+						<div class="project-summary-main">
+							<span class="project-type-badge">Academic Project</span>
+							<h2>Streamix &mdash; Home Theatre PC Application</h2>
+						</div>
+						<span class="project-toggle" aria-hidden="true"></span>
+					</summary>
+					<div class="project-body">
+						<div class="yt-facade" data-yt-id="uS2-4lom-FQ" role="button" tabindex="0"
+							aria-label="Play YouTube video: Streamix demo">
+							<img src="https://i.ytimg.com/vi/uS2-4lom-FQ/hqdefault.jpg" alt="Streamix demo video thumbnail"
+								loading="lazy" decoding="async" />
+							<span class="yt-facade-play" aria-hidden="true"></span>
+						</div>
+						<p>
+							<i>
+								Demonstrative video of a HTPC application, Streamix. The application provides an immersive,
+								inclusive, and enriching experience for users allowing them to perform actions such as browsing,
+								rate media, create and add to lists, watch media etc.
+							</i>
+						</p>
+						<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
+							<li>Responsible for all front-end <i>designs and development</i>, crafting a visually appealing
+								interface and experience for users</li>
+							<li>Co-developed<i> back-end system and embedded attributes </i>(Spotify Player, YouTube Live
+								Player)</li>
+							<li>Used Task-Centered System Design approach to develop the application using <i>real user
+									feedback</i></li>
+							<li>Developed BPMN process models and AS-IS/TO-BE customer journey maps to analyze fragmented
+								media consumption workflows and reduce cross-platform switching effort</li>
+							<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>HTML, CSS,
+									JavaScript, Adobe Photoshop & Premiere Pro</i></li>
+						</ul>
+						<h4>
+							Github:
+							<a href="https://github.com/aashikilangovan/Streamix-Website-HTPC" target="_blank"
+								rel="noopener noreferrer">
+								Streamix Website HTPC Repository
+							</a>
+						</h4>
+					</div>
+				</details>
 
+				<!-- Wahhing: industry / professional -->
+				<details class="project-card" data-type="industry">
+					<summary>
+						<span class="project-star" aria-hidden="true">&#10022;</span>
+						<div class="project-summary-main">
+							<span class="project-type-badge">Industry / Professional</span>
+							<h2>Online Meat Retailer Software Solution</h2>
+						</div>
+						<span class="project-toggle" aria-hidden="true"></span>
+					</summary>
+					<div class="project-body">
+						<span class="image main"><img src="images/wahhing1.jpg" alt="" loading="lazy" decoding="async" /></span>
+						<p>
+							<i>The Wah Hing Online Retailer Application was designed to provide a seamless shopping experience
+								for
+								customers and improve efficiency for admins, replacing the company’s manual, paper-based
+								ordering
+								system. By adopting an agile development approach, my team and I incorporated user feedback to
+								create an intuitive, user-friendly platform that streamlined operations and enhanced Wah Hing’s
+								online presence.</i>
+						</p>
+						<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
+							<li>Acted as Project Manager for a 6-person team, coordinating deliverables and stakeholder
+								communications, securing 100% sponsor approval on the final solution</li>
+							<li>Responsible for all <i>back-end systems, integration of API, and relevant testing</i></li>
+							<li>Co-developed <i>front-end system</i> by providing all initial designs for the application as
+								well as initial site designs prior to additional member renditions</li>
+							<li>Conducted stakeholder interviews and requirements elicitation sessions to inform system
+								design, workflow improvements, and UI/UX decisions</li>
+							<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>MongoDB,
+									Express.js, React.js, Node.js, Adobe Photoshop, Docker (hosting), Exploratory and Unit
+									Testing (Jest)</i></li>
+						</ul>
+						<h4>
+							Github:
+							<a href="" target="_blank" rel="noopener noreferrer">
+								Privated Due To Company's Confidentiality
+							</a>
+						</h4>
+					</div>
+				</details>
 
-				<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
-					<li>Acted as Project Manager for a 6-person team, coordinating deliverables and stakeholder
-						communications, securing 100% sponsor approval on the final solution</li>
-					<li>Responsible for all <i>back-end systems, integration of API, and relevant testing</i></li>
-					<li>Co-developed <i>front-end system</i> by providing all initial designs for the application as
-						well as initial site designs prior to additional member renditions</li>
-					<li>Conducted stakeholder interviews and requirements elicitation sessions to inform system
-						design, workflow improvements, and UI/UX decisions</li>
-					<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>MongoDB,
-							Express.js, React.js, Node.js, Adobe Photoshop, Docker (hosting), Exploratory and Unit
-							Testing (Jest)</i></li>
-				</ul>
-				<h4>
-					Github:
-					<a href="" target="_blank" rel="noopener noreferrer">
-						Privated Due To Company's Confidentiality
-					</a>
-				</h4>
+				<!-- School Life Sims: hackathon -->
+				<details class="project-card" data-type="hackathon">
+					<summary>
+						<span class="project-star" aria-hidden="true">&#10022;</span>
+						<div class="project-summary-main">
+							<span class="project-type-badge">Hackathon Project &mdash; Calgary Hacks</span>
+							<h2>School Life Sims</h2>
+						</div>
+						<span class="project-toggle" aria-hidden="true"></span>
+					</summary>
+					<div class="project-body">
+						<div class="project-shots">
+							<img src="https://user-images.githubusercontent.com/92137985/201612678-85188ce1-7d61-4dec-91ca-6a5b4543ffd0.png"
+								alt="School Life Sims screenshot: dialogue option screen" loading="lazy" decoding="async" />
+							<img src="https://user-images.githubusercontent.com/92137985/201612690-9dcb8163-c5b7-4dff-a612-84615c4729fc.jpg"
+								alt="School Life Sims screenshot: fight club mini-scenario" loading="lazy" decoding="async" />
+							<img src="https://user-images.githubusercontent.com/92137985/201612727-882efa3c-75f6-4c49-b703-c61e84f00f9f.jpg"
+								alt="School Life Sims screenshot: which will you pick dialogue choice" loading="lazy" decoding="async" />
+						</div>
+						<p>
+							<i>
+								A 2D life-sim game built in Unity over the 2022 Calgary Hacks Hackathon weekend &mdash;
+								branching mini-scenarios, custom sprite art, and a playable build shipped under a tight
+								hackathon deadline.
+							</i>
+						</p>
+						<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
+							<li>Designed and built a branching, story-driven "school life" simulator in Unity (C#) under
+								hackathon time constraints</li>
+							<li>Implemented multiple playable mini-scenarios and dialogue-choice paths with custom UI and
+								sprite art</li>
+							<li>Handled gameplay logic, scene management, and asset integration across a rapid
+								prototyping sprint</li>
+							<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>Unity
+									Game Engine, C#, OpenGL, Adobe Photoshop</i></li>
+						</ul>
+						<h4>
+							<a href="https://github.com/aashikilangovan/School-Life-Sims" target="_blank" rel="noopener noreferrer">
+								GitHub Repository
+							</a>
+							&nbsp;|&nbsp;
+							<a href="https://www.youtube.com/watch?v=UHWGq8ZkeV0" target="_blank" rel="noopener noreferrer">
+								Watch Demo
+							</a>
+						</h4>
+					</div>
+				</details>
 
-				<!-- Warehouse Optimization -->
-				<h2>Warehouse Optimization & Inventory Analysis</h2>
-				<p>
-					<i>
-						Business process analysis on a 27,000 sq. ft. warehouse holding ~455,000 items for
-						U Technology, benchmarking industry practices (Amazon, IKEA, Zara, DHL) to design a
-						data-driven inventory optimization strategy.
-					</i>
-				</p>
-				<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
-					<li>Identified inefficiencies in inventory flow, space utilization, and retrieval performance
-						through hands-on process analysis</li>
-					<li>Developed a data-driven inventory optimization strategy using location-based inventory
-						logic and frequency-based slotting to improve retrieval accuracy</li>
-					<li>Designed a standardized inventory classification and location coding system aligned with
-						ERP principles to improve data consistency and traceability</li>
-					<li>Created process maps, layout models, and structured documentation supporting future
-						digital transformation and ERP/WMS integration</li>
-					<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>Business
-							Process Mapping, ERP/WMS Concepts, Excel</i></li>
-				</ul>
+				<!-- Warehouse Optimization: industry / professional -->
+				<details class="project-card" data-type="industry">
+					<summary>
+						<span class="project-star" aria-hidden="true">&#10022;</span>
+						<div class="project-summary-main">
+							<span class="project-type-badge">Industry / Professional</span>
+							<h2>Warehouse Optimization &amp; Inventory Analysis</h2>
+						</div>
+						<span class="project-toggle" aria-hidden="true"></span>
+					</summary>
+					<div class="project-body">
+						<p>
+							<i>
+								Business process analysis on a 27,000 sq. ft. warehouse holding ~455,000 items for
+								U Technology, benchmarking industry practices (Amazon, IKEA, Zara, DHL) to design a
+								data-driven inventory optimization strategy.
+							</i>
+						</p>
+						<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
+							<li>Identified inefficiencies in inventory flow, space utilization, and retrieval performance
+								through hands-on process analysis</li>
+							<li>Developed a data-driven inventory optimization strategy using location-based inventory
+								logic and frequency-based slotting to improve retrieval accuracy</li>
+							<li>Designed a standardized inventory classification and location coding system aligned with
+								ERP principles to improve data consistency and traceability</li>
+							<li>Created process maps, layout models, and structured documentation supporting future
+								digital transformation and ERP/WMS integration</li>
+							<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>Business
+									Process Mapping, ERP/WMS Concepts, Excel</i></li>
+						</ul>
+					</div>
+				</details>
 			</article>
 
 			<!-- SKILLS -->
@@ -202,7 +296,6 @@
 				<h2 class="major"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Skills</h2>
 				<h4>Here are some languages, frameworks, and skills I have developed over my academic and professional
 					career</h4>
-				<div class="banner-graphic banner-skills" aria-hidden="true"><i class="fas fa-code"></i></div>
 
 				<div class="skills-columns">
 					<div class="skill-group">
@@ -304,8 +397,7 @@
 
 			<!-- Contact NOW EXPERIENCE -->
 			<article id="contact">
-				<h2 class="major"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Work Experience</h2>
-				<div class="banner-graphic banner-experience" aria-hidden="true"><i class="fas fa-rocket"></i></div>
+				<h2 class="major"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Experience</h2>
 				<div class="experience">
 					<h2>Education</h2>
 					<ul>
@@ -317,82 +409,107 @@
 
 					<hr>
 
-					<h2>JUNIOR SOFTWARE ENGINEER, U TECHNOLOGY CORP.</h2>
-					<h3><strong>May 2026 – Present</strong></h3>
-					<ul>
-						<li>Developed a full-stack specification management platform that digitizes operational
-							workflows and improves data consistency, traceability, and structured decision-making,
-							using Next.js, React, PostgreSQL, and TypeScript.</li>
-						<li>Designed reusable data models, workflow logic, and templates to support scalable document
-							generation, storage, and approval processes.</li>
-						<li>Built system functionality across frontend, backend, and database layers to support
-							structured data capture and workflow-based reporting.</li>
-						<li>Collaborated with engineering and marketing stakeholders in an Agile environment to
-							gather requirements, prioritize features, and deliver iterative system improvements.</li>
-						<li>Contributed to application architecture, testing, documentation, and AWS deployment
-							planning to support scalable, production-ready systems.</li>
-					</ul>
+					<div class="exp-entry">
+						<div class="exp-head">
+							<h2>Junior Software Engineer, U Technology Corp.</h2>
+							<span class="exp-date">May 2026 – Present</span>
+						</div>
+						<ul>
+							<li>Developed a full-stack specification management platform that digitizes operational
+								workflows and improves data consistency, traceability, and structured decision-making,
+								using Next.js, React, PostgreSQL, and TypeScript.</li>
+							<li>Designed reusable data models, workflow logic, and templates to support scalable document
+								generation, storage, and approval processes.</li>
+							<li>Built system functionality across frontend, backend, and database layers to support
+								structured data capture and workflow-based reporting.</li>
+							<li>Collaborated with engineering and marketing stakeholders in an Agile environment to
+								gather requirements, prioritize features, and deliver iterative system improvements.</li>
+							<li>Contributed to application architecture, testing, documentation, and AWS deployment
+								planning to support scalable, production-ready systems.</li>
+						</ul>
+					</div>
 
-					<h2>SYSTEMS DEVELOPER STUDENT, CANADIAN NATURAL RESOURCES LIMITED</h2>
-					<h3><strong>January 2023 – August 2023</strong></h3>
-					<ul>
-						<li>Developed and employed user-friendly and responsive front-end interfaces for in-house
-							applications, utilizing .NET Framework and C#.</li>
-						<li>Implemented back-end databases for front-end user interfaces, using Oracle Database and SQL.
-						</li>
-						<li>Analyzed existing business processes and identified inefficiencies, contributing to
-							~30% improvement in system performance and decision-making speed.</li>
-						<li>Worked with end-users through Agile iterative development to consistently advance prototypes
-							into final products.</li>
-						<li>Developed and automated Excel-based reporting tools (PivotTables, VLOOKUP, VBA), improving
-							data accuracy and reducing manual reporting effort.</li>
-						<li>Collaborated with the Engineering Information Management team, gaining experience with
-							industry tools like Smart P&ID, Smart3D, and Drawing Manager.</li>
-					</ul>
+					<div class="exp-entry">
+						<div class="exp-head">
+							<h2>Systems Developer Student, Canadian Natural Resources Limited</h2>
+							<span class="exp-date">January 2023 – August 2023</span>
+						</div>
+						<ul>
+							<li>Developed and employed user-friendly and responsive front-end interfaces for in-house
+								applications, utilizing .NET Framework and C#.</li>
+							<li>Implemented back-end databases for front-end user interfaces, using Oracle Database and SQL.
+							</li>
+							<li>Analyzed existing business processes and identified inefficiencies, contributing to
+								~30% improvement in system performance and decision-making speed.</li>
+							<li>Worked with end-users through Agile iterative development to consistently advance prototypes
+								into final products.</li>
+							<li>Developed and automated Excel-based reporting tools (PivotTables, VLOOKUP, VBA), improving
+								data accuracy and reducing manual reporting effort.</li>
+							<li>Collaborated with the Engineering Information Management team, gaining experience with
+								industry tools like Smart P&ID, Smart3D, and Drawing Manager.</li>
+						</ul>
+					</div>
 
-					<h2>SOFTWARE ENGINEERING INTERN, SPECTRUM7 TECHNOLOGIES</h2>
-					<h3><strong>May 2022 – August 2022</strong></h3>
-					<ul>
-						<li>Gained hands-on experience in Oracle Digital Assistant (ODA) by developing simulated
-							chatbots for Food Delivery Services and Customer Assistance.</li>
-						<li>Solved real-time consumer issues using chatbot functionalities, such as logging concerns and
-							additional user-provided notes.</li>
-						<li>Automated responses from keywords to create human-like feedback from chatbots.</li>
-					</ul>
+					<div class="exp-entry">
+						<div class="exp-head">
+							<h2>Software Engineering Intern, Spectrum7 Technologies</h2>
+							<span class="exp-date">May 2022 – August 2022</span>
+						</div>
+						<ul>
+							<li>Gained hands-on experience in Oracle Digital Assistant (ODA) by developing simulated
+								chatbots for Food Delivery Services and Customer Assistance.</li>
+							<li>Solved real-time consumer issues using chatbot functionalities, such as logging concerns and
+								additional user-provided notes.</li>
+							<li>Automated responses from keywords to create human-like feedback from chatbots.</li>
+						</ul>
+					</div>
 
 					<hr>
 
 					<h2>Leadership/Volunteer Experience</h2>
-					<div class="banner-graphic banner-leadership" aria-hidden="true"><i class="fas fa-users"></i></div>
-					<h2>FINAL YEAR CAPSTONE PROJECT MANAGER</h2>
-					<h3><strong>September 2023 – April 2024</strong></h3>
-					<ul>
-						<li>Led as the Project Manager for a 6-person team, coordinating team activities and
-							facilitating communication with TA's, instructors, and sponsor representatives, securing
-							100% sponsor approval on the final solution.</li>
-						<li>Ensured timely and accurate completion of deliverables, assigning tasks, providing updates
-							to relevant members, and mediating group discussions.</li>
-						<li>Acted as the primary spokesperson for the team, integrating Agile development processes.
-						</li>
-						<li>Responsible for ensuring sponsor satisfaction by maintaining constant feedback and
-							collaboration with sponsor representatives.</li>
-					</ul>
 
-					<h2>VOLUNTEER ASSOCIATE, DIABETES CANADA</h2>
-					<h3><strong>2016 – 2019</strong></h3>
-					<ul>
-						<li>Went door-to-door raising awareness, providing information, and educating the public about
-							Diabetes Canada’s mission and efforts.</li>
-						<li>Raised over $300 as an individual by collecting donations and encouraging community support
-							for diabetes research and care.</li>
-					</ul>
+					<div class="exp-entry">
+						<div class="exp-head">
+							<h2>Final Year Capstone Project Manager</h2>
+							<span class="exp-date">September 2023 – April 2024</span>
+						</div>
+						<ul>
+							<li>Led as the Project Manager for a 6-person team, coordinating team activities and
+								facilitating communication with TA's, instructors, and sponsor representatives, securing
+								100% sponsor approval on the final solution.</li>
+							<li>Ensured timely and accurate completion of deliverables, assigning tasks, providing updates
+								to relevant members, and mediating group discussions.</li>
+							<li>Acted as the primary spokesperson for the team, integrating Agile development processes.
+							</li>
+							<li>Responsible for ensuring sponsor satisfaction by maintaining constant feedback and
+								collaboration with sponsor representatives.</li>
+						</ul>
+					</div>
 
-					<h2>CALGARY HACKS HACKATHON</h2>
-					<h3><strong>2021 – 2023</strong></h3>
-					<ul>
-						<li>Participated in the Calgary Hacks Hackathon three years running, developing simulators
-							and other rapid-prototype projects under time constraints.</li>
-					</ul>
+					<div class="exp-entry">
+						<div class="exp-head">
+							<h2>Volunteer Associate, Diabetes Canada</h2>
+							<span class="exp-date">2016 – 2019</span>
+						</div>
+						<ul>
+							<li>Went door-to-door raising awareness, providing information, and educating the public about
+								Diabetes Canada’s mission and efforts.</li>
+							<li>Raised over $300 as an individual by collecting donations and encouraging community support
+								for diabetes research and care.</li>
+						</ul>
+					</div>
+
+					<div class="exp-entry">
+						<div class="exp-head">
+							<h2>Calgary Hacks Hackathon</h2>
+							<span class="exp-date">2021 – 2023</span>
+						</div>
+						<ul>
+							<li>Participated in the Calgary Hacks Hackathon three years running, developing simulators
+								and other rapid-prototype projects under time constraints &mdash; including
+								<a href="#work">School Life Sims</a>, a 2D life-sim game.</li>
+						</ul>
+					</div>
 				</div>
 			</article>
 

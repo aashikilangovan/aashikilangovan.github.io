@@ -84,8 +84,9 @@
 	setupReveal(
 		'#main article > h2, #main article > h3, #main article > h4, #main article > p, ' +
 		'#main article > ul, #main article > span.image, #main article > iframe, ' +
-		'#main .experience > h2, #main .experience > h3, #main .experience > ul, ' +
-		'#main .experience > hr, #main .experience > span.image',
+		'#main article > .project-card, ' +
+		'#main .experience > h2, #main .experience > ul, #main .experience > hr, ' +
+		'#main .experience > .exp-entry',
 		'reveal', 0.05, 6
 	);
 

@@ -2063,23 +2063,26 @@ body.is-preload #footer {
 	transform: translateY(0);
 }
 
-/* Skills: 2-column layout instead of 8 stacked blocks — the single
-   biggest win for making this section less of a long scroll. */
+/* Skills: 2-column layout instead of 8 stacked blocks, with the padding
+   and gaps trimmed hard — this section was the single biggest scroll. */
 
 .skills-columns {
 	column-count: 2;
-	column-gap: 2.25rem;
+	column-gap: 1.75rem;
 }
 
 .skill-group {
 	break-inside: avoid;
 	-webkit-column-break-inside: avoid;
-	margin-bottom: 1.1rem;
+	margin-bottom: 0.6rem;
 }
 
 .skill-group h3 {
 	margin-top: 0;
-	margin-bottom: 0.6rem;
+	margin-bottom: 0.4rem;
+	font-size: 0.85rem;
+	letter-spacing: 0.1rem;
+	opacity: 0.85;
 }
 
 @media screen and (max-width: 480px) {
@@ -2091,76 +2094,266 @@ body.is-preload #footer {
 }
 
 .skill-group .skills-list {
-	gap: 0.5rem;
+	gap: 0.35rem;
 	margin-bottom: 0;
 }
 
-/* Work Experience: tighter vertical rhythm between entries — this is a
-   long chronological list, so "more compact" means less air between
-   blocks rather than a layout change. */
+#about h4 {
+	margin-bottom: 1.25rem;
+}
+
+/* Experience: tighter vertical rhythm, and each entry's role + dates
+   collapsed onto one flex row instead of two stacked headings — this is
+   a long chronological list, so cutting a line per entry adds up fast. */
 
 .experience h2 {
 	margin-bottom: 0.3rem;
 }
 
-.experience h3 {
-	margin-top: 0;
-	margin-bottom: 0.6rem;
-	opacity: 0.75;
-}
-
 .experience ul {
-	margin-bottom: 1.5rem;
+	margin-bottom: 1rem;
 }
 
 .experience li {
-	margin-bottom: 0.35rem;
-	line-height: 1.5;
+	margin-bottom: 0.25rem;
+	line-height: 1.45;
 }
 
 .experience hr {
-	margin: 1.75rem 0;
+	margin: 1.25rem 0;
 }
 
-/* Highlighted Projects: same idea — tighten the gap between each
-   project's title/media/description/bullets/links. */
-
-#work > h2:not(.major) {
-	margin-top: 2.5rem;
-	margin-bottom: 0.75rem;
+.exp-entry {
+	margin-bottom: 1.1rem;
 }
 
-#work > .image.main,
-#work > .yt-facade {
+.exp-entry:last-child {
+	margin-bottom: 0;
+}
+
+.exp-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.25rem 1rem;
+	margin-bottom: 0.5rem;
+}
+
+.exp-head h2 {
+	margin: 0;
+	font-size: 0.95rem;
+	letter-spacing: 0.06rem;
+}
+
+.exp-date {
+	flex: 0 0 auto;
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.04rem;
+	color: var(--accent-soft);
+	opacity: 0.8;
+	white-space: nowrap;
+}
+
+/* Highlighted Projects: each one is now a collapsible, opaque "starry"
+   card instead of a flat resume-style list — click to expand. */
+
+#work > h4 {
+	margin-bottom: 1.5rem;
+	opacity: 0.6;
+}
+
+.project-card {
+	position: relative;
+	display: block;
+	margin-bottom: 1rem;
+	border-radius: 14px;
+	overflow: hidden;
+	background: #11142b;
+	border: 1px solid rgba(var(--accent-soft-rgb), 0.22);
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.project-card:last-child {
+	margin-bottom: 0;
+}
+
+.project-card:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, var(--accent-soft), var(--accent-deep), transparent);
+	opacity: 0.45;
+}
+
+.project-card.is-featured {
+	border-color: rgba(var(--accent-soft-rgb), 0.45);
+	box-shadow: 0 4px 18px rgba(var(--accent-rgb), 0.2);
+}
+
+.project-card summary {
+	display: flex;
+	align-items: center;
+	gap: 0.85rem;
+	list-style: none;
+	cursor: pointer;
+	padding: 1rem 1.25rem;
+	user-select: none;
+}
+
+.project-card summary::-webkit-details-marker,
+.project-card summary::marker {
+	display: none;
+	content: '';
+}
+
+.project-card summary:hover {
+	background: rgba(var(--accent-soft-rgb), 0.06);
+}
+
+.project-star {
+	position: absolute;
+	top: 12px;
+	right: 44px;
+	font-size: 11px;
+	color: var(--accent-soft);
+	animation: sparkleTwinkle 2.6s ease-in-out infinite;
+	pointer-events: none;
+}
+
+.project-summary-main {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.project-summary-main h2 {
+	margin: 0;
+	font-size: 0.95rem;
+	letter-spacing: 0.05rem;
+}
+
+.project-type-badge {
+	display: inline-block;
+	font-size: 0.62rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 0.2rem 0.6rem;
+	border-radius: 999px;
+	margin-bottom: 0.4rem;
+	background: rgba(var(--accent-rgb), 0.15);
+	border: 1px solid rgba(var(--accent-rgb), 0.4);
+	color: var(--accent-soft);
+}
+
+.project-fave {
+	margin: 0.4rem 0 0 0;
+	font-size: 0.78rem;
+	font-style: italic;
+	color: var(--accent-soft);
+	opacity: 0.9;
+}
+
+.project-toggle {
+	position: relative;
+	flex: 0 0 auto;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	border: 1px solid rgba(var(--accent-soft-rgb), 0.4);
+	transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.project-toggle:before,
+.project-toggle:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: var(--accent-soft);
+	transform: translate(-50%, -50%);
+}
+
+.project-toggle:before {
+	width: 10px;
+	height: 2px;
+}
+
+.project-toggle:after {
+	width: 2px;
+	height: 10px;
+	transition: opacity 0.2s ease;
+}
+
+.project-card[open] .project-toggle {
+	transform: rotate(180deg);
+	border-color: var(--accent-soft);
+}
+
+.project-card[open] .project-toggle:after {
+	opacity: 0;
+}
+
+.project-body {
+	padding: 0 1.25rem 1.25rem 1.25rem;
+}
+
+.project-body > *:first-child {
+	margin-top: 0;
+}
+
+.project-body > .image.main,
+.project-body > .yt-facade,
+.project-body > .project-shots {
 	margin: 0 0 1rem 0;
 }
 
-#work > p {
+.project-body > p {
 	margin-bottom: 0.85rem;
 }
 
-#work li {
+.project-body > ul {
+	margin-bottom: 1rem;
+}
+
+.project-body li {
 	margin-bottom: 0.3rem;
 	line-height: 1.5;
 }
 
-#work > ul {
-	margin-bottom: 1rem;
+.project-body > h4 {
+	margin-bottom: 0;
 }
 
-#work > h4 {
-	margin-bottom: 0;
+/* Screenshot strip (School Life Sims) */
+
+.project-shots {
+	display: flex;
+	gap: 0.6rem;
+	flex-wrap: wrap;
+}
+
+.project-shots img {
+	flex: 1 1 140px;
+	height: 120px;
+	object-fit: cover;
+	border-radius: 8px;
+	border: 1px solid rgba(var(--accent-soft-rgb), 0.25);
 }
 
 /* Cap project screenshots to a sane height instead of however tall the
    source screenshot happens to be — keeps each project skimmable. */
 
-#work .image.main {
+.project-body .image.main {
 	height: 260px;
 	overflow: hidden;
 }
 
-#work .image.main img {
+.project-body .image.main img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -2539,52 +2732,6 @@ body.is-preload #footer {
 	0% { background-position: 0% 0; }
 	100% { background-position: -220% 0; }
 }
-
-/* Section banner graphics — replaces the old stock-photo banners with a
-   themed CSS-only graphic (dot-grid "stars" + a big translucent icon).
-   No image bytes at all, and it's guaranteed to match the palette. */
-
-.banner-graphic {
-	display: block;
-	margin: 2.5rem 0;
-	width: 100%;
-	height: 125px;
-	border-radius: 15px;
-	overflow: hidden;
-	position: relative;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-	background-image:
-		radial-gradient(rgba(255, 255, 255, 0.85) 1px, transparent 1.4px),
-		radial-gradient(rgba(var(--accent-soft-rgb), 0.65) 1px, transparent 1.4px),
-		linear-gradient(135deg, #0a0e24 0%, #141b3f 50%, #1c2454 100%);
-	background-size: 46px 46px, 70px 70px, 100% 100%;
-	background-position: 0 0, 25px 20px, 0 0;
-	background-repeat: repeat, repeat, no-repeat;
-}
-
-.banner-graphic:after {
-	content: '';
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	height: 2px;
-	background: linear-gradient(90deg, transparent, var(--accent-soft), var(--accent-deep), transparent);
-	opacity: 0.6;
-}
-
-.banner-graphic i {
-	position: absolute;
-	right: 14px;
-	bottom: -18px;
-	font-size: 120px;
-	line-height: 1;
-	pointer-events: none;
-}
-
-.banner-skills i { color: rgba(var(--accent-soft-rgb), 0.18); }
-.banner-experience i { color: rgba(var(--accent-deep-rgb), 0.18); }
-.banner-leadership i { color: rgba(var(--accent-rgb), 0.18); }
 
 /* Image hover polish */
 
@@ -3047,7 +3194,8 @@ body.is-preload #footer {
 	.eq i,
 	.experience hr,
 	.star-layer,
-	.shooting-star {
+	.shooting-star,
+	.project-star {
 		animation: none !important;
 	}
 
