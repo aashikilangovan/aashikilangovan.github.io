@@ -2340,18 +2340,42 @@ body.is-preload #footer {
 
 /* Links moved to the top of the expanded card (instead of buried at the
    bottom) so they're visible without scrolling through the whole thing —
-   styled as a small quick-links bar in the card's type color. */
+   styled as a bold, pulsing quick-links bar so it's impossible to miss. */
 
 .project-links {
+	position: relative;
 	margin: 0 0 1.1rem 0;
-	padding: 0.6rem 0.9rem;
-	background: rgba(var(--type-rgb), 0.08);
-	border: 1px solid rgba(var(--type-rgb), 0.3);
+	padding: 0.65rem 1rem;
+	background: linear-gradient(90deg, rgba(var(--type-rgb), 0.32), rgba(var(--type-rgb), 0.12));
+	border: 1.5px solid rgba(var(--type-rgb), 0.75);
 	border-radius: 8px;
+	animation: projectLinksPulse 2.6s ease-in-out infinite;
+}
+
+.project-links:before {
+	content: '\1F517\00A0';
 }
 
 .project-links a {
+	color: #ffffff;
+	font-weight: 700;
+	border-bottom: 2px solid rgba(var(--type-rgb), 0.8);
+}
+
+.project-links a:hover {
 	color: rgb(var(--type-rgb));
+	border-bottom-color: #ffffff;
+}
+
+@keyframes projectLinksPulse {
+	0%, 100% {
+		box-shadow: 0 0 0 0 rgba(var(--type-rgb), 0.35);
+		border-color: rgba(var(--type-rgb), 0.6);
+	}
+	50% {
+		box-shadow: 0 0 16px 2px rgba(var(--type-rgb), 0.6);
+		border-color: rgba(var(--type-rgb), 1);
+	}
 }
 
 /* Screenshot strip (School Life Sims) */
@@ -3221,7 +3245,8 @@ body.is-preload #footer {
 	.experience hr,
 	.star-layer,
 	.shooting-star,
-	.project-star {
+	.project-star,
+	.project-links {
 		animation: none !important;
 	}
 
@@ -3231,6 +3256,11 @@ body.is-preload #footer {
 
 	.cat-glow {
 		opacity: 0.6;
+	}
+
+	.project-links {
+		box-shadow: 0 0 12px 1px rgba(var(--type-rgb), 0.45);
+		border-color: rgba(var(--type-rgb), 0.9);
 	}
 
 	#scroll-progress-bar {
