@@ -2163,11 +2163,12 @@ body.is-preload #footer {
 	left: 20%;
 }
 
-/* Now-playing equalizer accent (name + section headings) */
+/* Twinkling sparkle accent (name + section headings) — reuses the same
+   4 <i> markup that used to be equalizer bars, just re-themed. */
 
 .eq {
 	display: inline-flex;
-	align-items: flex-end;
+	align-items: center;
 	gap: 3px;
 	height: 0.85em;
 	margin-right: 0.65rem;
@@ -2176,27 +2177,40 @@ body.is-preload #footer {
 
 .eq i {
 	display: block;
-	width: 3px;
-	background: linear-gradient(180deg, var(--accent-soft), var(--accent));
-	border-radius: 2px;
-	transform-origin: bottom center;
-	animation: eqBounce 1.1s ease-in-out infinite;
-	box-shadow: 0 0 4px rgba(var(--accent-rgb), 0.4);
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background: var(--accent-soft);
+	box-shadow: 0 0 6px rgba(var(--accent-soft-rgb), 0.9);
+	animation: sparkleTwinkle 1.8s ease-in-out infinite;
 }
 
-.eq i:nth-child(1) { height: 35%; animation-delay: -0.9s; }
-.eq i:nth-child(2) { height: 100%; animation-delay: -0.5s; }
-.eq i:nth-child(3) { height: 55%; animation-delay: -0.2s; }
-.eq i:nth-child(4) { height: 78%; animation-delay: -1.1s; }
-
-@keyframes eqBounce {
-	0%, 100% { transform: scaleY(0.35); }
-	50% { transform: scaleY(1); }
+.eq i:nth-child(1) { width: 3px; height: 3px; animation-delay: -1.4s; }
+.eq i:nth-child(2) {
+	width: 5px;
+	height: 5px;
+	margin-top: -3px;
+	animation-delay: -0.6s;
+	background: var(--accent);
+	box-shadow: 0 0 7px rgba(var(--accent-rgb), 0.9);
+}
+.eq i:nth-child(3) { width: 3px; height: 3px; margin-top: 2px; animation-delay: -1.0s; }
+.eq i:nth-child(4) {
+	width: 4px;
+	height: 4px;
+	animation-delay: -0.2s;
+	background: var(--accent-deep);
+	box-shadow: 0 0 6px rgba(var(--accent-deep-rgb), 0.9);
 }
 
-/* Music notes bursting from wherever you click */
+@keyframes sparkleTwinkle {
+	0%, 100% { opacity: 0.35; transform: scale(0.7); }
+	50% { opacity: 1; transform: scale(1.15); }
+}
 
-.click-note {
+/* Stars bursting from wherever you click */
+
+.click-spark {
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -2205,20 +2219,22 @@ body.is-preload #footer {
 	pointer-events: none;
 	z-index: 10001;
 	will-change: transform, opacity;
-	animation: clickNoteFly 850ms ease-out forwards;
+	animation: clickSparkFly 850ms ease-out forwards;
 }
 
-@keyframes clickNoteFly {
+@keyframes clickSparkFly {
 	0% {
 		opacity: 0;
-		transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+		transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
 	}
-	15% {
+	25% {
+		/* a little twinkle-pulse right as it appears */
 		opacity: 1;
+		transform: translate(calc(-50% + var(--dx, 20px) * 0.3), calc(-50% + var(--dy, -50px) * 0.3)) scale(1.3) rotate(calc(var(--rot, 15deg) * 0.4));
 	}
 	100% {
 		opacity: 0;
-		transform: translate(calc(-50% + var(--dx, 20px)), calc(-50% + var(--dy, -50px))) scale(1.1) rotate(var(--rot, 15deg));
+		transform: translate(calc(-50% + var(--dx, 20px)), calc(-50% + var(--dy, -50px))) scale(1) rotate(var(--rot, 15deg));
 	}
 }
 
@@ -2257,64 +2273,114 @@ body.is-preload #footer {
 	transform: translateY(-50%);
 }
 
-/* Ambient background spectrum */
+/* Starfield — a handful of box-shadow "stars" per layer, painted in a
+   single element each. Positions are generated once at load (custom.js);
+   the only ongoing cost is a compositor-friendly opacity animation, so
+   this stays cheap regardless of how many stars are in it. */
 
-#ambient-eq {
+#starfield {
 	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 46px;
-	display: flex;
-	align-items: flex-end;
-	justify-content: space-between;
-	padding: 0 6%;
-	gap: 3px;
+	inset: 0;
 	z-index: 2;
 	pointer-events: none;
-	opacity: 0.22;
-	-webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
-	mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+	overflow: hidden;
 }
 
-#ambient-eq i {
-	flex: 1 1 auto;
-	max-width: 6px;
-	background: linear-gradient(180deg, var(--accent-soft), var(--accent-deep));
-	border-radius: 2px 2px 0 0;
-	transform-origin: bottom center;
-	animation: ambientPulse 2.4s ease-in-out infinite;
+.star-layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1px;
+	height: 1px;
+	background: transparent;
+	border-radius: 50%;
 }
 
-#ambient-eq i:nth-child(1) { height: 22%; animation-delay: -0.1s; }
-#ambient-eq i:nth-child(2) { height: 48%; animation-delay: -1.4s; }
-#ambient-eq i:nth-child(3) { height: 30%; animation-delay: -0.7s; }
-#ambient-eq i:nth-child(4) { height: 65%; animation-delay: -2.0s; }
-#ambient-eq i:nth-child(5) { height: 40%; animation-delay: -0.3s; }
-#ambient-eq i:nth-child(6) { height: 80%; animation-delay: -1.8s; }
-#ambient-eq i:nth-child(7) { height: 35%; animation-delay: -1.1s; }
-#ambient-eq i:nth-child(8) { height: 55%; animation-delay: -0.5s; }
-#ambient-eq i:nth-child(9) { height: 25%; animation-delay: -1.6s; }
-#ambient-eq i:nth-child(10) { height: 70%; animation-delay: -0.9s; }
-#ambient-eq i:nth-child(11) { height: 45%; animation-delay: -2.2s; }
-#ambient-eq i:nth-child(12) { height: 60%; animation-delay: -0.2s; }
-#ambient-eq i:nth-child(13) { height: 33%; animation-delay: -1.3s; }
-#ambient-eq i:nth-child(14) { height: 75%; animation-delay: -0.6s; }
-#ambient-eq i:nth-child(15) { height: 28%; animation-delay: -1.9s; }
-#ambient-eq i:nth-child(16) { height: 50%; animation-delay: -1.0s; }
-#ambient-eq i:nth-child(17) { height: 38%; animation-delay: -0.4s; }
-#ambient-eq i:nth-child(18) { height: 68%; animation-delay: -1.5s; }
-#ambient-eq i:nth-child(19) { height: 42%; animation-delay: -0.8s; }
-#ambient-eq i:nth-child(20) { height: 20%; animation-delay: -2.1s; }
+.star-layer-1 {
+	animation: starTwinkle 3.2s ease-in-out infinite;
+}
 
-@keyframes ambientPulse {
-	0%, 100% { transform: scaleY(0.6); opacity: 0.6; }
-	50% { transform: scaleY(1); opacity: 1; }
+.star-layer-2 {
+	animation: starTwinkle 4.6s ease-in-out infinite;
+	animation-delay: -1.5s;
+}
+
+.star-layer-3 {
+	width: 2px;
+	height: 2px;
+	animation: starTwinkle 5.8s ease-in-out infinite;
+	animation-delay: -3s;
+}
+
+@keyframes starTwinkle {
+	0%, 100% { opacity: 0.4; }
+	50% { opacity: 1; }
+}
+
+/* Occasional shooting stars — one element each, mostly idle; only
+   "active" for a small slice of a long CSS cycle, so no JS scheduling
+   is needed to keep them rare rather than constant. */
+
+.shooting-star {
+	position: fixed;
+	top: -4%;
+	width: 2px;
+	height: 2px;
+	background: #fff;
+	border-radius: 50%;
+	box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.9);
+	z-index: 2;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.shooting-star:before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: 0;
+	width: 90px;
+	height: 1px;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), transparent);
+	transform: translateY(-50%) rotate(180deg);
+	transform-origin: right center;
+}
+
+.shooting-star-1 {
+	left: 65%;
+	animation: shootingStar1 26s linear infinite;
+}
+
+.shooting-star-2 {
+	left: 25%;
+	top: -6%;
+	animation: shootingStar2 34s linear infinite;
+	animation-delay: -12s;
+}
+
+.shooting-star-2:before {
+	/* This one travels down-right, so its trail (opposite the direction
+	   of travel) points up-left — the pseudo's un-rotated default. */
+	transform: translateY(-50%) rotate(0deg);
+}
+
+@keyframes shootingStar1 {
+	0% { opacity: 0; transform: translate(0, 0); }
+	2% { opacity: 1; }
+	13% { opacity: 0; transform: translate(-360px, 360px); }
+	100% { opacity: 0; transform: translate(-360px, 360px); }
+}
+
+@keyframes shootingStar2 {
+	0% { opacity: 0; transform: translate(0, 0); }
+	2% { opacity: 1; }
+	11% { opacity: 0; transform: translate(300px, 320px); }
+	100% { opacity: 0; transform: translate(300px, 320px); }
 }
 
 @media screen and (max-width: 480px) {
 
-	#ambient-eq {
+	.shooting-star {
 		display: none;
 	}
 
@@ -2431,16 +2497,35 @@ body.is-preload #footer {
 }
 
 .cat-body {
+	/* Plain positioning box only — the actual torso shape lives on
+	   :after (see below) so clip-path there doesn't clip the ears,
+	   eyes, muzzle, headphones etc. that live outside this box. */
 	position: absolute;
 	left: 50%;
 	bottom: 8px;
 	width: 72px;
 	height: 52px;
-	background: linear-gradient(160deg, #3a3a3a, #050505 65%);
-	border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
-	box-shadow: 0 0 16px 1px rgba(var(--accent-rgb), 0.12);
 	transform: translateX(-50%);
 	animation: catBob 3.1s ease-in-out infinite;
+}
+
+.cat-body:after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: linear-gradient(160deg, #3a3a3a, #050505 65%);
+	/* Rounded-hexagon torso (narrow shoulders, wide haunches, tapered
+	   base) instead of a plain oval — pairs with the wedge head so the
+	   whole body reads as "cat", not two stacked circles. */
+	clip-path: polygon(
+		30% 0%, 70% 0%,
+		92% 20%, 100% 55%,
+		90% 85%, 75% 100%,
+		25% 100%, 10% 85%,
+		0% 55%, 8% 20%
+	);
+	filter: drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.3));
 }
 
 .cat-body:before {
@@ -2490,12 +2575,14 @@ body.is-preload #footer {
 
 .cat-eye {
 	position: absolute;
-	top: -14px;
-	width: 6px;
-	height: 7px;
+	top: -15px;
+	width: 8px;
+	height: 8px;
 	background: var(--accent-soft);
-	border-radius: 50%;
-	box-shadow: 0 0 6px 1px rgba(var(--accent-soft-rgb), 0.85);
+	/* A little 4-point sparkle instead of a plain dot — glowing star
+	   eyes, since he's meant to read as a star-cat now. */
+	clip-path: polygon(50% 0%, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0% 50%, 37% 37%);
+	filter: drop-shadow(0 0 4px rgba(var(--accent-soft-rgb), 0.9));
 	animation: catBlink 4.5s ease-in-out infinite;
 }
 
@@ -2576,11 +2663,13 @@ body.is-preload #footer {
 
 .cat-paw {
 	position: absolute;
-	bottom: -4px;
-	width: 16px;
-	height: 11px;
+	bottom: -3px;
+	width: 18px;
+	height: 9px;
 	background: linear-gradient(160deg, #2c2c2c, #050505 70%);
-	border-radius: 50%;
+	/* Rounder on top, flatter on the bottom — reads as a resting paw
+	   instead of another plain circle. */
+	border-radius: 50% 50% 35% 35% / 65% 65% 30% 30%;
 }
 
 .cat-paw-left {
@@ -2602,6 +2691,22 @@ body.is-preload #footer {
 	border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 	box-shadow: 0 0 8px 1px rgba(var(--accent-soft-rgb), 0.6);
 	pointer-events: none;
+}
+
+.cat-headphones:after {
+	/* A little star charm on the headband — the star-cat signature,
+	   without changing the headphones themselves. */
+	content: '';
+	position: absolute;
+	top: -7px;
+	left: 50%;
+	width: 7px;
+	height: 7px;
+	background: #fff;
+	clip-path: polygon(50% 0%, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0% 50%, 37% 37%);
+	filter: drop-shadow(0 0 4px rgba(var(--accent-soft-rgb), 0.9));
+	transform: translateX(-50%);
+	animation: sparkleTwinkle 2.4s ease-in-out infinite;
 }
 
 .cat-headphone-cup {
@@ -2757,10 +2862,16 @@ body.is-preload #footer {
 	.cat-tail,
 	.cat-glow,
 	.cat-note,
+	.cat-headphones:after,
 	.eq i,
 	.experience hr,
-	#ambient-eq i {
+	.star-layer,
+	.shooting-star {
 		animation: none !important;
+	}
+
+	.star-layer {
+		opacity: 0.7;
 	}
 
 	.cat-glow {

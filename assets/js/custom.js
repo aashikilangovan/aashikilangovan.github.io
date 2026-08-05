@@ -143,35 +143,61 @@
 		updateProgress();
 	}
 
-	// Music notes burst from wherever you click.
+	// Stars burst from wherever you click.
 	if (!prefersReducedMotion) {
-		var noteGlyphs = ['♪', '♫', '♬'];
-		var noteColors = ['var(--accent-soft)', 'var(--accent)', 'var(--accent-deep)'];
+		var sparkGlyphs = ['✦', '✧', '⋆'];
+		var sparkColors = ['var(--accent-soft)', 'var(--accent)', 'var(--accent-deep)', '#ffffff'];
 
 		// Capture phase: fires before any other handler on the page can
 		// stopPropagation() the click (e.g. the article-panel backdrop).
 		document.addEventListener('click', function (e) {
-			var count = 2 + Math.floor(Math.random() * 2); // 2-3 notes per click
+			var count = 2 + Math.floor(Math.random() * 2); // 2-3 sparks per click
 
 			for (var i = 0; i < count; i++) {
-				var note = document.createElement('span');
-				note.className = 'click-note';
-				note.textContent = noteGlyphs[Math.floor(Math.random() * noteGlyphs.length)];
-				note.style.left = e.clientX + 'px';
-				note.style.top = e.clientY + 'px';
-				note.style.color = noteColors[Math.floor(Math.random() * noteColors.length)];
-				note.style.setProperty('--dx', (Math.random() * 64 - 32).toFixed(0) + 'px');
-				note.style.setProperty('--dy', (-42 - Math.random() * 36).toFixed(0) + 'px');
-				note.style.setProperty('--rot', (Math.random() * 44 - 22).toFixed(0) + 'deg');
-				note.style.animationDelay = (i * 55) + 'ms';
+				var spark = document.createElement('span');
+				spark.className = 'click-spark';
+				spark.textContent = sparkGlyphs[Math.floor(Math.random() * sparkGlyphs.length)];
+				spark.style.left = e.clientX + 'px';
+				spark.style.top = e.clientY + 'px';
+				spark.style.color = sparkColors[Math.floor(Math.random() * sparkColors.length)];
+				spark.style.setProperty('--dx', (Math.random() * 64 - 32).toFixed(0) + 'px');
+				spark.style.setProperty('--dy', (-42 - Math.random() * 36).toFixed(0) + 'px');
+				spark.style.setProperty('--rot', (Math.random() * 44 - 22).toFixed(0) + 'deg');
+				spark.style.animationDelay = (i * 55) + 'ms';
 
-				document.body.appendChild(note);
-				note.addEventListener('animationend', function () {
+				document.body.appendChild(spark);
+				spark.addEventListener('animationend', function () {
 					this.remove();
 				});
 			}
 		}, true);
 	}
+
+	// Starfield: box-shadow "stars" generated once at load — no per-frame
+	// work, just a one-time string built from the current viewport size.
+	(function generateStarfield() {
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		var layers = [
+			{ selector: '.star-layer-1', count: 110, color: '255,255,255', maxOpacity: 0.9 },
+			{ selector: '.star-layer-2', count: 55, color: '125,211,252', maxOpacity: 0.85 },
+			{ selector: '.star-layer-3', count: 20, color: '255,255,255', maxOpacity: 1 }
+		];
+
+		layers.forEach(function (layer) {
+			var el = document.querySelector(layer.selector);
+			if (!el) return;
+
+			var shadows = [];
+			for (var i = 0; i < layer.count; i++) {
+				var x = Math.round(Math.random() * w);
+				var y = Math.round(Math.random() * h);
+				var o = (0.4 + Math.random() * (layer.maxOpacity - 0.4)).toFixed(2);
+				shadows.push(x + 'px ' + y + 'px 0 rgba(' + layer.color + ',' + o + ')');
+			}
+			el.style.boxShadow = shadows.join(',');
+		});
+	})();
 
 	// Cat mascot: Mewo.
 	var cat = document.getElementById('cat');

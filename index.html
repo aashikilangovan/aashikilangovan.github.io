@@ -407,17 +407,22 @@
 	<!-- BG -->
 	<div id="bg"></div>
 
-	<!-- Ambient background spectrum -->
-	<div id="ambient-eq" aria-hidden="true">
-		<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-		<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+	<!-- Starfield: box-shadow "stars" on 3 layers, positions generated once at load -->
+	<div id="starfield" aria-hidden="true">
+		<div class="star-layer star-layer-1"></div>
+		<div class="star-layer star-layer-2"></div>
+		<div class="star-layer star-layer-3"></div>
 	</div>
+
+	<!-- Occasional shooting stars -->
+	<div class="shooting-star shooting-star-1" aria-hidden="true"></div>
+	<div class="shooting-star shooting-star-2" aria-hidden="true"></div>
 
 	<!-- Cat Mascot: Mewo -->
 	<div id="cat" title="Mewo">
 		<div class="cat-glow"></div>
-		<div class="cat-note cat-note-1">&#9834;</div>
-		<div class="cat-note cat-note-2">&#9835;</div>
+		<div class="cat-note cat-note-1">&#10022;</div>
+		<div class="cat-note cat-note-2">&#10023;</div>
 		<div class="cat-tail"></div>
 		<div class="cat-body">
 			<div class="cat-ear cat-ear-left"></div>
