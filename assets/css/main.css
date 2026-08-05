@@ -2338,8 +2338,20 @@ body.is-preload #footer {
 	line-height: 1.5;
 }
 
-.project-body > h4 {
-	margin-bottom: 0;
+/* Links moved to the top of the expanded card (instead of buried at the
+   bottom) so they're visible without scrolling through the whole thing —
+   styled as a small quick-links bar in the card's type color. */
+
+.project-links {
+	margin: 0 0 1.1rem 0;
+	padding: 0.6rem 0.9rem;
+	background: rgba(var(--type-rgb), 0.08);
+	border: 1px solid rgba(var(--type-rgb), 0.3);
+	border-radius: 8px;
+}
+
+.project-links a {
+	color: rgb(var(--type-rgb));
 }
 
 /* Screenshot strip (School Life Sims) */
