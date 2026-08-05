@@ -11,6 +11,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
@@ -54,7 +55,7 @@
 			<!-- Intro -->
 			<article id="intro">
 				<h2 class="major"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>About Me</h2>
-				<span class="image aboutme"><img src="images/collage1.jpg" alt="" /></span>
+				<span class="image aboutme"><img src="images/collage1.jpg" alt="" loading="lazy" decoding="async" /></span>
 				<p>Pleased to meet you! My name is Aashik Ilangovan. I'm a Software Engineer with a Master of
 					Management and a Bachelor of Science in Software Engineering, both from the University of
 					Calgary, alongside a minor in Entrepreneurship and Enterprise.</p>
@@ -104,10 +105,12 @@
 				</h4>
 
 				<h2>Streamix - Home Theatre PC Application</h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/uS2-4lom-FQ"
-					title="YouTube video player" frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen></iframe>
+				<div class="yt-facade" data-yt-id="uS2-4lom-FQ" role="button" tabindex="0"
+					aria-label="Play YouTube video: Streamix demo">
+					<img src="https://i.ytimg.com/vi/uS2-4lom-FQ/hqdefault.jpg" alt="Streamix demo video thumbnail"
+						loading="lazy" decoding="async" />
+					<span class="yt-facade-play" aria-hidden="true"></span>
+				</div>
 				<p>
 					<i>
 						Demonstrative video of a HTPC application, Streamix. The application provides an immersive,
@@ -137,7 +140,7 @@
 
 				<!-- Wahhing -->
 				<h2>Online Meat Retailer Software Solution</h2>
-				<span class="image main"><img src="images/wahhing1.jpg" alt="" /></span>
+				<span class="image main"><img src="images/wahhing1.jpg" alt="" loading="lazy" decoding="async" /></span>
 				<p>
 					<i>The Wah Hing Online Retailer Application was designed to provide a seamless shopping experience
 						for
@@ -196,7 +199,7 @@
 				<h2 class="major"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Skills</h2>
 				<h4>Here are some languages, frameworks, and skills I have developed over my academic and professional
 					career</h4>
-				<span class="image skills"><img src="images/language.jpg" alt="" /></span>
+				<span class="image skills"><img src="images/language.jpg" alt="" loading="lazy" decoding="async" /></span>
 
 				<h3><i class="fas fa-code"></i> Programming Languages</h3>
 				<ul class="skills-list">
@@ -281,7 +284,7 @@
 			<!-- Contact NOW EXPERIENCE -->
 			<article id="contact">
 				<h2 class="major"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Work Experience</h2>
-				<span class="image skills"><img src="images/work.jpg" alt="" /></span>
+				<span class="image skills"><img src="images/work.jpg" alt="" loading="lazy" decoding="async" /></span>
 				<div class="experience">
 					<h2>Education</h2>
 					<ul>
@@ -431,13 +434,14 @@
 		<div class="cat-bubble">meow!</div>
 	</div>
 
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-	<script src="assets/js/custom.js"></script>
+	<!-- Scripts: defer so the browser can fetch them all in parallel
+		 instead of one at a time, while still running in this order. -->
+	<script src="assets/js/jquery.min.js" defer></script>
+	<script src="assets/js/browser.min.js" defer></script>
+	<script src="assets/js/breakpoints.min.js" defer></script>
+	<script src="assets/js/util.js" defer></script>
+	<script src="assets/js/main.js" defer></script>
+	<script src="assets/js/custom.js" defer></script>
 
 </body>
 

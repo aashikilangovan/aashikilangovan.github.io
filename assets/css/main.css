@@ -1976,6 +1976,66 @@ body.is-preload #footer {
    Custom: scroll-reveal, gradient headings, hover polish, cat mascot
    ========================================================================== */
 
+/* YouTube facade — a static thumbnail + play button instead of a live
+   iframe, so the ~1MB YouTube player bundle only loads if someone
+   actually clicks play, not on every page load. */
+
+.yt-facade {
+	position: relative;
+	display: block;
+	width: 560px;
+	max-width: 100%;
+	aspect-ratio: 560 / 315;
+	overflow: hidden;
+	border-radius: 6px;
+	background: #000;
+	cursor: pointer;
+	margin: 1rem 0;
+}
+
+.yt-facade img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	opacity: 0.85;
+	transition: opacity 0.2s ease;
+}
+
+.yt-facade:hover img,
+.yt-facade:focus-visible img {
+	opacity: 1;
+}
+
+.yt-facade-play {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 68px;
+	height: 48px;
+	transform: translate(-50%, -50%);
+	background: rgba(0, 0, 0, 0.75);
+	border-radius: 12px;
+	transition: background-color 0.2s ease;
+	pointer-events: none;
+}
+
+.yt-facade:hover .yt-facade-play,
+.yt-facade:focus-visible .yt-facade-play {
+	background: var(--accent);
+}
+
+.yt-facade-play:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 54%;
+	transform: translate(-50%, -50%);
+	border-style: solid;
+	border-width: 12px 0 12px 20px;
+	border-color: transparent transparent transparent #fff;
+}
+
 /* Accent palette — cool blue/cyan family, chosen to sit with the
    blue-purple background art. One system, reused everywhere below
    instead of mixing independent one-off colors. */

@@ -7,6 +7,50 @@
 	var prefersReducedMotion = window.matchMedia &&
 		window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+	// main.js only removes body.is-preload on window's `load` event, which
+	// waits for every image on the page — including ones sitting behind
+	// article panels nobody has opened yet. On a slow connection that can
+	// stall the intro reveal for a long time even though the actual markup
+	// and styles are long since ready. Remove it as soon as the DOM itself
+	// is parsed instead; main.js's own (now redundant) removal on window
+	// load still runs harmlessly afterwards.
+	function revealEarly() {
+		window.setTimeout(function () {
+			document.body.classList.remove('is-preload');
+		}, 100);
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', revealEarly);
+	} else {
+		revealEarly();
+	}
+
+	// YouTube facade: only load the real (heavy) embed once someone
+	// actually asks to play it.
+	document.querySelectorAll('.yt-facade').forEach(function (el) {
+		function loadVideo() {
+			var id = el.getAttribute('data-yt-id');
+			var iframe = document.createElement('iframe');
+			iframe.width = '560';
+			iframe.height = '315';
+			iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+			iframe.title = 'YouTube video player';
+			iframe.frameBorder = '0';
+			iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+			iframe.allowFullscreen = true;
+			el.replaceWith(iframe);
+		}
+
+		el.addEventListener('click', loadVideo);
+		el.addEventListener('keydown', function (e) {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				loadVideo();
+			}
+		});
+	});
+
 	// Scroll-reveal for section content.
 	function setupReveal(selector, className, staggerStep, staggerCap) {
 		var els = document.querySelectorAll(selector);
