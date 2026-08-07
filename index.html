@@ -589,7 +589,9 @@
 
 	<!-- Battle Modal -->
 	<div id="battle-modal" class="battle-modal hidden">
-		<div class="battle-content">
+		<div id="battle-content" class="battle-content">
+			<div class="battle-sparkles" aria-hidden="true"></div>
+
 			<!-- Confirmation Screen -->
 			<div id="battle-confirm" class="battle-screen">
 				<h2>⚔️ Challenge Mewo?</h2>
@@ -605,11 +607,12 @@
 				<div class="battle-header">
 					<div class="battle-opponent">
 						<h3>Mewo</h3>
-						<div class="mewo-health-container">
+						<div id="mewo-health-container" class="mewo-health-container">
 							<div class="mewo-health-bar">
 								<div id="mewo-health-fill" class="health-fill"></div>
+								<div class="health-bar-shine"></div>
 							</div>
-							<span class="health-text"><span id="mewo-current-hp">100</span>/100</span>
+							<span class="health-text"><span id="mewo-current-hp">100</span>/100 HP</span>
 						</div>
 					</div>
 					<div class="vs-text">VS</div>
@@ -620,8 +623,32 @@
 				</div>
 
 				<div id="battle-arena-visual" class="battle-arena-visual">
-					<div id="mewo-sprite" class="mewo-sprite"></div>
+					<div class="arena-floor"></div>
+
+					<div id="mewo-sprite" class="battle-mewo">
+						<div class="bm-glow"></div>
+						<div class="bm-tail"></div>
+						<div class="bm-body">
+							<div class="bm-ear bm-ear-left"></div>
+							<div class="bm-ear bm-ear-right"></div>
+							<div class="bm-headphones">
+								<div class="bm-cup bm-cup-left"></div>
+								<div class="bm-cup bm-cup-right"></div>
+							</div>
+							<div class="bm-whiskers bm-whiskers-left"></div>
+							<div class="bm-whiskers bm-whiskers-right"></div>
+							<div class="bm-eye bm-eye-left"></div>
+							<div class="bm-eye bm-eye-right"></div>
+							<div class="bm-muzzle"></div>
+							<div class="bm-paw bm-paw-left"></div>
+							<div class="bm-paw bm-paw-right"></div>
+						</div>
+						<div class="bm-flash"></div>
+					</div>
+
 					<div id="attack-display" class="attack-display"></div>
+					<div id="impact-burst" class="impact-burst"></div>
+					<div id="dmg-popup-layer" class="dmg-popup-layer"></div>
 				</div>
 
 				<div id="mewo-dialogue" class="mewo-dialogue">What are you doing?</div>

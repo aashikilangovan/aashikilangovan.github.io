@@ -321,38 +321,89 @@
 
 		function showAttackAnimation(attack, callback) {
 			var display = document.getElementById('attack-display');
-			var sprite = document.getElementById('mewo-sprite');
 
-			// Trigger react animation
-			sprite.style.animation = 'none';
-			setTimeout(function () {
-				sprite.style.animation = 'mewoReact 0.3s ease';
-			}, 10);
-
-			// Show attack emoji
+			// Show attack emoji flying toward Mewo
 			var atkEl = document.createElement('div');
 			atkEl.className = 'attack-animation';
 			atkEl.textContent = attack.emoji;
 			display.appendChild(atkEl);
 
 			if (!prefersReducedMotion) {
-				atkEl.style.animation = 'attackFly 0.6s ease-out forwards';
+				atkEl.style.animation = 'attackFly 0.5s ease-out forwards';
 				setTimeout(function () {
 					atkEl.remove();
 					callback();
-				}, 600);
+				}, 500);
 			} else {
 				atkEl.remove();
 				callback();
 			}
 		}
 
+		function spawnImpactBurst() {
+			var burst = document.getElementById('impact-burst');
+			var glyphs = ['✦', '✧', '⋆', '💥'];
+			var count = prefersReducedMotion ? 0 : (4 + Math.floor(Math.random() * 3));
+
+			for (var i = 0; i < count; i++) {
+				var spark = document.createElement('span');
+				spark.className = 'impact-spark';
+				spark.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+				var angle = Math.random() * Math.PI * 2;
+				var dist = 30 + Math.random() * 40;
+				spark.style.setProperty('--ix', (Math.cos(angle) * dist).toFixed(0) + 'px');
+				spark.style.setProperty('--iy', (Math.sin(angle) * dist).toFixed(0) + 'px');
+				spark.style.animationDelay = (i * 30) + 'ms';
+				burst.appendChild(spark);
+				spark.addEventListener('animationend', function () { this.remove(); });
+			}
+		}
+
+		function spawnDamagePopup(damage) {
+			var layer = document.getElementById('dmg-popup-layer');
+			var popup = document.createElement('div');
+			popup.className = 'dmg-popup';
+			popup.textContent = '-' + damage;
+			layer.appendChild(popup);
+
+			if (prefersReducedMotion) {
+				setTimeout(function () { popup.remove(); }, 900);
+			} else {
+				popup.addEventListener('animationend', function () { this.remove(); });
+			}
+		}
+
+		function triggerHitReaction() {
+			var sprite = document.getElementById('mewo-sprite');
+			var content = document.getElementById('battle-content');
+
+			sprite.classList.remove('is-hit');
+			content.classList.remove('is-shaking');
+			void sprite.offsetWidth;
+			sprite.classList.add('is-hit');
+			if (!prefersReducedMotion) {
+				content.classList.add('is-shaking');
+			}
+
+			setTimeout(function () {
+				sprite.classList.remove('is-hit');
+				content.classList.remove('is-shaking');
+			}, 450);
+		}
+
 		function updateHealthBar() {
 			var fill = document.getElementById('mewo-health-fill');
 			var current = document.getElementById('mewo-current-hp');
+			var container = document.getElementById('mewo-health-container');
 			var percent = Math.max(0, (mewoHealth / maxHealth) * 100);
 			fill.style.width = percent + '%';
 			current.textContent = Math.max(0, Math.floor(mewoHealth));
+
+			if (percent > 0 && percent <= 25) {
+				container.classList.add('is-low');
+			} else {
+				container.classList.remove('is-low');
+			}
 		}
 
 		function performAttack(attack) {
@@ -362,6 +413,11 @@
 			showAttackAnimation(attack, function () {
 				var damage = getDamage();
 				mewoHealth -= damage;
+				if (mewoHealth < 0) mewoHealth = 0;
+
+				triggerHitReaction();
+				spawnImpactBurst();
+				spawnDamagePopup(damage);
 				updateHealthBar();
 
 				var healthPercent = (mewoHealth / maxHealth) * 100;
@@ -370,13 +426,17 @@
 				dialogueEl.textContent = dialogue;
 
 				if (mewoHealth <= 0) {
+					var sprite = document.getElementById('mewo-sprite');
+					setTimeout(function () {
+						sprite.classList.add('is-defeated');
+					}, 350);
 					setTimeout(function () {
 						endBattle();
-					}, 1200);
+					}, 1100);
 				} else {
 					setTimeout(function () {
 						buttons.forEach(function (btn) { btn.disabled = false; });
-					}, 1200);
+					}, 900);
 				}
 			});
 		}
@@ -385,17 +445,37 @@
 			mewoHealth = maxHealth;
 			updateHealthBar();
 
+			var sprite = document.getElementById('mewo-sprite');
+			sprite.classList.remove('is-defeated', 'is-hit');
+
 			var attackButtons = document.getElementById('attack-buttons');
 			attackButtons.innerHTML = '';
 
 			// Shuffle and pick 4 attacks
-			var shuffled = attackTypes.sort(function () { return Math.random() - 0.5; });
+			var shuffled = attackTypes.slice().sort(function () { return Math.random() - 0.5; });
 			var selected = shuffled.slice(0, 4);
 
 			selected.forEach(function (attack) {
 				var btn = document.createElement('button');
 				btn.className = 'battle-btn attack-btn';
-				btn.innerHTML = attack.emoji + '<br>' + attack.name + '<br><small>' + attack.desc + '</small>';
+				btn.type = 'button';
+
+				var emojiSpan = document.createElement('span');
+				emojiSpan.className = 'atk-emoji';
+				emojiSpan.textContent = attack.emoji;
+
+				var nameSpan = document.createElement('span');
+				nameSpan.className = 'atk-name';
+				nameSpan.textContent = attack.name;
+
+				var descSpan = document.createElement('span');
+				descSpan.className = 'atk-desc';
+				descSpan.textContent = attack.desc;
+
+				btn.appendChild(emojiSpan);
+				btn.appendChild(nameSpan);
+				btn.appendChild(descSpan);
+
 				btn.addEventListener('click', function () {
 					performAttack(attack);
 				});
