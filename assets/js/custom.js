@@ -220,6 +220,8 @@
 		var bubbleTimeout;
 		var messageIndex = 0;
 		var autoRotateInterval;
+		var battleActive = false;
+		var battleVictoryUnlocked = false;
 
 		function showBubble(text) {
 			if (!bubble) return;
@@ -240,7 +242,7 @@
 
 		// Auto-rotate through messages continuously.
 		function startAutoRotate() {
-			if (prefersReducedMotion) return;
+			if (prefersReducedMotion || battleActive) return;
 
 			autoRotateInterval = setInterval(function () {
 				showBubble(messages[messageIndex]);
@@ -253,17 +255,200 @@
 			}, 2200); // ~2.2s per message: readable but quick
 		}
 
+		function stopAutoRotate() {
+			clearInterval(autoRotateInterval);
+		}
+
 		// Start auto-rotation after a brief delay.
 		setTimeout(function () {
 			startAutoRotate();
 		}, 1500);
 
-		// Clicking Mewo shows a random message and keeps rotation going.
+		// Battle System
+		var battleModal = document.getElementById('battle-modal');
+		var battleConfirm = document.getElementById('battle-confirm');
+		var battleArena = document.getElementById('battle-arena');
+		var battleVictory = document.getElementById('battle-victory');
+		var mewoHealth = 100;
+		var maxHealth = 100;
+
+		var attackTypes = [
+			{ emoji: '🎵', name: 'Sonic Blast', desc: 'Music notes' },
+			{ emoji: '🎧', name: 'Headphone Spin', desc: 'Spinning audio' },
+			{ emoji: '💻', name: 'Debug Attack', desc: 'Code bugs' },
+			{ emoji: '🐾', name: 'Paw Swipe', desc: 'Cat power' },
+			{ emoji: '✨', name: 'Star Burst', desc: 'Star power' },
+			{ emoji: '⌨️', name: 'Keyboard Smash', desc: 'Type attack' }
+		];
+
+		var mewoDialogues = {
+			first: [
+				'Huh? What was that?',
+				'Scoff... lucky hit.',
+				'You dare challenge me?'
+			],
+			second: [
+				'Okay, okay... you\'ve got some skills.',
+				'This is getting interesting...',
+				'Hmm, not bad at all.'
+			],
+			third: [
+				'Wait... you might actually be strong?',
+				'I might have to start trying now...',
+				'Okay, you have my attention.'
+			],
+			final: [
+				'You... you actually beat me?',
+				'I didn\'t expect this...',
+				'Well played, human.'
+			]
+		};
+
+		function getRandomElement(arr) {
+			return arr[Math.floor(Math.random() * arr.length)];
+		}
+
+		function getDamage() {
+			return 20 + Math.floor(Math.random() * 16); // 20-35 damage
+		}
+
+		function getMewoDialogue(healthPercent) {
+			if (healthPercent > 75) return getRandomElement(mewoDialogues.first);
+			if (healthPercent > 50) return getRandomElement(mewoDialogues.second);
+			if (healthPercent > 25) return getRandomElement(mewoDialogues.third);
+			return getRandomElement(mewoDialogues.final);
+		}
+
+		function showAttackAnimation(attack, callback) {
+			var display = document.getElementById('attack-display');
+			var sprite = document.getElementById('mewo-sprite');
+
+			// Trigger react animation
+			sprite.style.animation = 'none';
+			setTimeout(function () {
+				sprite.style.animation = 'mewoReact 0.3s ease';
+			}, 10);
+
+			// Show attack emoji
+			var atkEl = document.createElement('div');
+			atkEl.className = 'attack-animation';
+			atkEl.textContent = attack.emoji;
+			display.appendChild(atkEl);
+
+			if (!prefersReducedMotion) {
+				atkEl.style.animation = 'attackFly 0.6s ease-out forwards';
+				setTimeout(function () {
+					atkEl.remove();
+					callback();
+				}, 600);
+			} else {
+				atkEl.remove();
+				callback();
+			}
+		}
+
+		function updateHealthBar() {
+			var fill = document.getElementById('mewo-health-fill');
+			var current = document.getElementById('mewo-current-hp');
+			var percent = Math.max(0, (mewoHealth / maxHealth) * 100);
+			fill.style.width = percent + '%';
+			current.textContent = Math.max(0, Math.floor(mewoHealth));
+		}
+
+		function performAttack(attack) {
+			var buttons = document.querySelectorAll('.attack-btn');
+			buttons.forEach(function (btn) { btn.disabled = true; });
+
+			showAttackAnimation(attack, function () {
+				var damage = getDamage();
+				mewoHealth -= damage;
+				updateHealthBar();
+
+				var healthPercent = (mewoHealth / maxHealth) * 100;
+				var dialogue = getMewoDialogue(healthPercent);
+				var dialogueEl = document.getElementById('mewo-dialogue');
+				dialogueEl.textContent = dialogue;
+
+				if (mewoHealth <= 0) {
+					setTimeout(function () {
+						endBattle();
+					}, 1200);
+				} else {
+					setTimeout(function () {
+						buttons.forEach(function (btn) { btn.disabled = false; });
+					}, 1200);
+				}
+			});
+		}
+
+		function initBattleArena() {
+			mewoHealth = maxHealth;
+			updateHealthBar();
+
+			var attackButtons = document.getElementById('attack-buttons');
+			attackButtons.innerHTML = '';
+
+			// Shuffle and pick 4 attacks
+			var shuffled = attackTypes.sort(function () { return Math.random() - 0.5; });
+			var selected = shuffled.slice(0, 4);
+
+			selected.forEach(function (attack) {
+				var btn = document.createElement('button');
+				btn.className = 'battle-btn attack-btn';
+				btn.innerHTML = attack.emoji + '<br>' + attack.name + '<br><small>' + attack.desc + '</small>';
+				btn.addEventListener('click', function () {
+					performAttack(attack);
+				});
+				attackButtons.appendChild(btn);
+			});
+
+			// Reset dialogue
+			document.getElementById('mewo-dialogue').textContent = 'What are you doing?';
+		}
+
+		function startBattle() {
+			battleActive = true;
+			stopAutoRotate();
+			battleConfirm.classList.add('hidden');
+			battleArena.classList.remove('hidden');
+			battleVictory.classList.add('hidden');
+			initBattleArena();
+		}
+
+		function endBattle() {
+			var victoryText = document.getElementById('victory-text');
+			victoryText.textContent = 'You defeated Mewo!';
+			battleArena.classList.add('hidden');
+			battleVictory.classList.remove('hidden');
+
+			// Add unlocked message to rotation on first victory
+			if (!battleVictoryUnlocked) {
+				messages.push('Nice battle, you\'re pretty good... 🐾');
+				battleVictoryUnlocked = true;
+			}
+		}
+
+		function closeBattle() {
+			battleActive = false;
+			battleModal.classList.add('hidden');
+			battleConfirm.classList.remove('hidden');
+			battleArena.classList.add('hidden');
+			battleVictory.classList.add('hidden');
+			startAutoRotate();
+		}
+
+		// Battle event listeners
+		document.getElementById('battle-confirm-yes').addEventListener('click', startBattle);
+		document.getElementById('battle-confirm-no').addEventListener('click', closeBattle);
+		document.getElementById('battle-exit-btn').addEventListener('click', closeBattle);
+		document.getElementById('battle-victory-close').addEventListener('click', closeBattle);
+
+		// Clicking Mewo shows the battle prompt
 		cat.addEventListener('click', function () {
 			jump();
-			var randomMsg = messages[Math.floor(Math.random() * messages.length)];
-			showBubble(randomMsg);
-			// Rotation continues in background.
+			if (!battleActive) {
+				battleModal.classList.remove('hidden');
+			}
 		});
 
 	}

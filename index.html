@@ -587,6 +587,63 @@
 		<div class="cat-bubble">meow!</div>
 	</div>
 
+	<!-- Battle Modal -->
+	<div id="battle-modal" class="battle-modal hidden">
+		<div class="battle-content">
+			<!-- Confirmation Screen -->
+			<div id="battle-confirm" class="battle-screen">
+				<h2>⚔️ Challenge Mewo?</h2>
+				<p>Are you sure you want to battle Mewo?</p>
+				<div class="battle-buttons">
+					<button id="battle-confirm-yes" class="battle-btn">Yes, Let's Go!</button>
+					<button id="battle-confirm-no" class="battle-btn cancel">Nah, Maybe Later</button>
+				</div>
+			</div>
+
+			<!-- Battle Screen -->
+			<div id="battle-arena" class="battle-screen hidden">
+				<div class="battle-header">
+					<div class="battle-opponent">
+						<h3>Mewo</h3>
+						<div class="mewo-health-container">
+							<div class="mewo-health-bar">
+								<div id="mewo-health-fill" class="health-fill"></div>
+							</div>
+							<span class="health-text"><span id="mewo-current-hp">100</span>/100</span>
+						</div>
+					</div>
+					<div class="vs-text">VS</div>
+					<div class="battle-player">
+						<h3>You</h3>
+						<p class="player-note">Ready!</p>
+					</div>
+				</div>
+
+				<div id="battle-arena-visual" class="battle-arena-visual">
+					<div id="mewo-sprite" class="mewo-sprite"></div>
+					<div id="attack-display" class="attack-display"></div>
+				</div>
+
+				<div id="mewo-dialogue" class="mewo-dialogue">What are you doing?</div>
+
+				<div class="battle-actions">
+					<div id="attack-buttons" class="attack-buttons">
+						<!-- Dynamically populated -->
+					</div>
+					<button id="battle-exit-btn" class="battle-btn exit-btn">Exit Battle</button>
+				</div>
+			</div>
+
+			<!-- Victory Screen -->
+			<div id="battle-victory" class="battle-screen hidden">
+				<h2>🎉 Victory!</h2>
+				<p id="victory-text">You defeated Mewo!</p>
+				<p class="victory-unlock">✨ Mewo unlocked a new secret message! ✨</p>
+				<button id="battle-victory-close" class="battle-btn">Nice! Return</button>
+			</div>
+		</div>
+	</div>
+
 	<!-- Scripts: defer so the browser can fetch them all in parallel
 		 instead of one at a time, while still running in this order. -->
 	<script src="assets/js/jquery.min.js" defer></script>
