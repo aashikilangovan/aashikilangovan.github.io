@@ -252,7 +252,7 @@
 				if (messageIndex % 3 === 0) {
 					jump();
 				}
-			}, 2200); // ~2.2s per message: readable but quick
+			}, 3000); // ~3s per message: comfortable reading pace
 		}
 
 		function stopAutoRotate() {
@@ -375,19 +375,15 @@
 
 		function triggerHitReaction() {
 			var sprite = document.getElementById('mewo-sprite');
-			var content = document.getElementById('battle-content');
 
+			// Just a small localized shake + flash on Mewo himself — no
+			// whole-modal shake, which read as the page "refreshing".
 			sprite.classList.remove('is-hit');
-			content.classList.remove('is-shaking');
 			void sprite.offsetWidth;
 			sprite.classList.add('is-hit');
-			if (!prefersReducedMotion) {
-				content.classList.add('is-shaking');
-			}
 
 			setTimeout(function () {
 				sprite.classList.remove('is-hit');
-				content.classList.remove('is-shaking');
 			}, 450);
 		}
 
@@ -501,9 +497,11 @@
 			battleArena.classList.add('hidden');
 			battleVictory.classList.remove('hidden');
 
-			// Add unlocked message to rotation on first victory
+			// Add unlocked message to the front of the rotation on first
+			// victory, so it's the next thing Mewo says.
 			if (!battleVictoryUnlocked) {
-				messages.push('Nice battle, you\'re pretty good... 🐾');
+				messages.unshift('Nice battle, you\'re pretty good... 🐾');
+				messageIndex = 0;
 				battleVictoryUnlocked = true;
 			}
 		}

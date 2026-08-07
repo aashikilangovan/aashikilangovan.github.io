@@ -3313,21 +3313,9 @@ body.is-preload #footer {
 	box-sizing: border-box;
 }
 
-.battle-content.is-shaking {
-	animation: battleShake 0.35s ease;
-}
-
 @keyframes battlePop {
 	0% { transform: scale(0.7); opacity: 0; }
 	100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes battleShake {
-	0%, 100% { transform: translate(0, 0); }
-	20% { transform: translate(-6px, 2px); }
-	40% { transform: translate(5px, -3px); }
-	60% { transform: translate(-4px, 3px); }
-	80% { transform: translate(3px, -2px); }
 }
 
 /* Twinkling sparkle backdrop behind all battle screens */
@@ -3405,6 +3393,20 @@ body.is-preload #footer {
 }
 
 .battle-btn {
+	/* Reset the theme's aggressive default button sizing (fixed 2.75rem
+	   height/line-height, 0.2rem letter-spacing, uppercase, nowrap) —
+	   otherwise text gets squeezed off-center and can overflow. */
+	height: auto;
+	line-height: 1.35;
+	letter-spacing: normal;
+	text-transform: none;
+	white-space: normal;
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
 	padding: 0.8rem 1.5rem;
 	background: linear-gradient(135deg, var(--accent), var(--accent-deep));
 	color: #060714;
@@ -3848,7 +3850,7 @@ body.is-preload #footer {
 
 @keyframes bmHitFlash {
 	0% { opacity: 0; }
-	15% { opacity: 0.9; }
+	15% { opacity: 0.45; }
 	100% { opacity: 0; }
 }
 
@@ -4022,31 +4024,41 @@ body.is-preload #footer {
 }
 
 .attack-btn {
+	/* Same theme-default reset as .battle-btn — this is the fix for text
+	   overflowing the button: the theme's base `button` rule forces a
+	   fixed 2.75rem height/line-height plus 0.2rem letter-spacing and
+	   uppercase, which inflates and vertically squashes the label. */
+	height: auto;
+	letter-spacing: normal;
+	text-transform: none;
+	box-sizing: border-box;
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 0.15rem;
+	gap: 0.1rem;
 	min-width: 0;
-	min-height: 74px;
-	padding: 0.65rem 0.5rem;
+	width: 100%;
+	min-height: 68px;
+	padding: 0.55rem 0.4rem;
 	background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.22), rgba(var(--accent-deep-rgb), 0.12));
 	color: var(--accent-soft);
 	border: 2px solid rgba(var(--accent-rgb), 0.5);
 	border-radius: 8px;
 	font-weight: 600;
-	font-size: 0.85em;
+	font-size: 0.78em;
 	cursor: pointer;
 	transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 	text-align: center;
-	line-height: 1.25;
+	line-height: 1.2;
 	overflow-wrap: break-word;
 	word-break: break-word;
 	white-space: normal;
 }
 
 .attack-btn .atk-emoji {
-	font-size: 1.5em;
+	font-size: 1.35em;
 	line-height: 1;
 	filter: drop-shadow(0 0 4px rgba(var(--accent-rgb), 0.6));
 }
@@ -4054,13 +4066,15 @@ body.is-preload #footer {
 .attack-btn .atk-name {
 	font-weight: 800;
 	color: #fff;
-	font-size: 0.95em;
+	font-size: 0.9em;
+	max-width: 100%;
 }
 
 .attack-btn .atk-desc {
 	font-weight: 500;
 	color: rgba(var(--accent-soft-rgb), 0.85);
-	font-size: 0.82em;
+	font-size: 0.78em;
+	max-width: 100%;
 }
 
 .attack-btn:hover:not(:disabled) {
@@ -4108,7 +4122,6 @@ body.is-preload #footer {
 /* ===== Reduced motion adjustments ===== */
 @media (prefers-reduced-motion: reduce) {
 	.battle-content,
-	.battle-content.is-shaking,
 	.battle-sparkles::before,
 	.battle-sparkles::after,
 	.battle-mewo,
