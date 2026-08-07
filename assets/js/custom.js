@@ -218,6 +218,8 @@
 			'click me!'
 		];
 		var bubbleTimeout;
+		var messageIndex = 0;
+		var autoRotateInterval;
 
 		function showBubble(text) {
 			if (!bubble) return;
@@ -236,30 +238,33 @@
 			cat.classList.add('is-jumping');
 		}
 
+		// Auto-rotate through messages continuously.
+		function startAutoRotate() {
+			if (prefersReducedMotion) return;
+
+			autoRotateInterval = setInterval(function () {
+				showBubble(messages[messageIndex]);
+				messageIndex = (messageIndex + 1) % messages.length;
+
+				// Jump every few messages to keep it lively.
+				if (messageIndex % 3 === 0) {
+					jump();
+				}
+			}, 2200); // ~2.2s per message: readable but quick
+		}
+
+		// Start auto-rotation after a brief delay.
+		setTimeout(function () {
+			startAutoRotate();
+		}, 1500);
+
+		// Clicking Mewo shows a random message and keeps rotation going.
 		cat.addEventListener('click', function () {
 			jump();
-			showBubble(messages[Math.floor(Math.random() * messages.length)]);
+			var randomMsg = messages[Math.floor(Math.random() * messages.length)];
+			showBubble(randomMsg);
+			// Rotation continues in background.
 		});
-
-		// A one-time nudge shortly after load so Mewo gets noticed.
-		setTimeout(function () {
-			jump();
-			showBubble('click me!');
-		}, 2500);
-
-		// Then a periodic, low-frequency nudge to stay noticeable without being annoying.
-		if (!prefersReducedMotion) {
-			(function scheduleIdleNudge() {
-				var delay = 25000 + Math.random() * 20000; // 25-45s
-				setTimeout(function () {
-					if (!cat.classList.contains('is-talking')) {
-						jump();
-						showBubble(messages[Math.floor(Math.random() * messages.length)]);
-					}
-					scheduleIdleNudge();
-				}, delay);
-			})();
-		}
 
 	}
 
