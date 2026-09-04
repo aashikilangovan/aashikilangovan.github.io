@@ -138,29 +138,40 @@
 								GitHub Repository
 							</a>
 						</h4>
-						<span class="image main"><img src="images/photo-client-mgmt.png" alt="Photography Client Management clients page" loading="lazy" decoding="async" /></span>
+						<div class="project-carousel" data-carousel>
+							<div class="carousel-viewport">
+								<img src="images/photo-client-mgmt-1.png" alt="Public gallery view a client sees through their share link, no login required" class="is-active" loading="lazy" decoding="async" />
+								<img src="images/photo-client-mgmt-2.png" alt="Clients page in the photographer's dashboard" loading="lazy" decoding="async" />
+								<img src="images/photo-client-mgmt-3.png" alt="Projects page listing shoots by client and status" loading="lazy" decoding="async" />
+								<img src="images/photo-client-mgmt-4.png" alt="Project detail page showing a gallery and its public share link" loading="lazy" decoding="async" />
+							</div>
+							<button type="button" class="carousel-arrow carousel-prev" aria-label="Previous screenshot">&#10094;</button>
+							<button type="button" class="carousel-arrow carousel-next" aria-label="Next screenshot">&#10095;</button>
+							<div class="carousel-dots"></div>
+						</div>
 						<p>
 							<i>
-								A small full-stack app for photographers to manage clients, photography projects, and
-								galleries &mdash; and to deliver a finished gallery to a client through a public,
-								no-login link, the way Pixieset actually delivers photos. Built as a focused portfolio
-								project to get hands-on with PHP/Laravel and Vue.
+								Wanted real reps with PHP/Laravel and Vue outside of work, so I built the app I'd
+								actually want as a photographer: a private dashboard for managing clients and shoots
+								that hands off a finished gallery through one clean link &mdash; no account, no login,
+								basically my own take on how Pixieset delivers photos to clients. Just gave it a full
+								redesign into a moody, sleek dark theme that actually feels like something worth
+								showing a client.
 							</i>
 						</p>
 						<ul style="list-style-type: disc; padding-left: 20px;font-family: sans-serif; font-size: 16px;">
-							<li>Built a REST API (Laravel) backing clients, projects, and galleries, with
-								<code>Client 1&mdash;* Project 1&mdash;* Gallery</code> relationships enforced via
-								Eloquent and cascading deletes at the database level</li>
-							<li>Designed a public, unguessable share-link system (<code>/g/&lt;slug&gt;</code>) that lets
-								a client view a finished gallery with no account or login, mirroring how Pixieset
-								delivers photos</li>
+							<li>Built the REST API in Laravel, with <code>Client 1&mdash;* Project 1&mdash;* Gallery</code>
+								relationships enforced through Eloquent and cascading deletes at the database level</li>
+							<li>Designed the public, unguessable share-link system (<code>/g/&lt;slug&gt;</code>) so a
+								client can open their finished gallery with zero account or login</li>
 							<li>Split API Resources into admin vs. public serializations (<code>GalleryResource</code> vs.
 								<code>PublicGalleryResource</code>) so a shared link can't leak client contact info or
 								internal IDs</li>
 							<li>Built the Vue 3 (Composition API) SPA frontend, including a separate bare layout for the
 								public gallery route via <code>vue-router</code> route meta</li>
-							<li>Set up Docker Compose for a decoupled frontend/backend/Postgres deployment alongside a
-								zero-setup SQLite path for local dev</li>
+							<li>Redesigned the whole UI into a photography-focused dark theme, and set up Docker Compose
+								for a decoupled frontend/backend/Postgres deployment alongside a zero-setup SQLite path
+								for local dev</li>
 							<li><span style="text-decoration: underline; font-weight: bold;">Utilized:</span> <i>PHP,
 									Laravel 12, Vue 3, Vue Router, Axios, SQLite, PostgreSQL, Docker</i></li>
 						</ul>

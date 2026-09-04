@@ -51,6 +51,46 @@
 		});
 	});
 
+	// Screenshot carousels: flip through a project's shots with the
+	// arrows or dots. Only wired up where there's more than one image.
+	document.querySelectorAll('.project-carousel').forEach(function (carousel) {
+		var imgs = carousel.querySelectorAll('.carousel-viewport img');
+		var prevBtn = carousel.querySelector('.carousel-prev');
+		var nextBtn = carousel.querySelector('.carousel-next');
+		var dotsWrap = carousel.querySelector('.carousel-dots');
+
+		if (imgs.length <= 1) {
+			if (prevBtn) prevBtn.remove();
+			if (nextBtn) nextBtn.remove();
+			if (dotsWrap) dotsWrap.remove();
+			return;
+		}
+
+		var index = 0;
+		var dots = [];
+
+		imgs.forEach(function (img, i) {
+			var dot = document.createElement('button');
+			dot.type = 'button';
+			dot.className = 'carousel-dot' + (i === 0 ? ' is-active' : '');
+			dot.setAttribute('aria-label', 'Show screenshot ' + (i + 1) + ' of ' + imgs.length);
+			dot.addEventListener('click', function () { goTo(i); });
+			dotsWrap.appendChild(dot);
+			dots.push(dot);
+		});
+
+		function goTo(i) {
+			imgs[index].classList.remove('is-active');
+			dots[index].classList.remove('is-active');
+			index = (i + imgs.length) % imgs.length;
+			imgs[index].classList.add('is-active');
+			dots[index].classList.add('is-active');
+		}
+
+		if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
+		if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
+	});
+
 	// Scroll-reveal for section content.
 	function setupReveal(selector, className, staggerStep, staggerCap) {
 		var els = document.querySelectorAll(selector);
